@@ -80,6 +80,9 @@ export default class ProblemChart extends Component {
                {
                    userProblem.filter(n => n)
                }
+                <View scale={this.scale} animate={false} data={[{index: store.playerState.currentTime, problem:1}]}>
+                    <Geom color="red" size={1} type="interval" position="index*problem"></Geom>
+                </View>
             </Chart>
         </div>
         )
