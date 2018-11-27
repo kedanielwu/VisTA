@@ -1,0 +1,22 @@
+.filter-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between
+}
+.level-group > span {
+    padding-right: 10px;
+}
+
+.search-group > span {
+    padding-right: 10px;
+}
+
+.filter-container > div {
+    padding-bottom: 6px;
+}
+
+.master-group > span {
+    margin-right: 10px;
+}
+

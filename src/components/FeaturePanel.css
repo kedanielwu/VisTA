@@ -1,0 +1,27 @@
+.feature-container {
+    display: flex;
+    width: 440px;
+    flex-wrap: wrap;
+}
+
+.slider-control {
+    width: 440px;
+}
+
+.legend-container {
+    width: 120px;
+    padding-left: 20px;
+}
+
+.repetition-container {
+    padding-bottom: 15px;
+}
+
+.negation-container {
+    padding-bottom: 15px;
+}
+
+.sentiment-container {
+    padding-top: 10px;
+    padding-bottom: 15px;
+}
