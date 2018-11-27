@@ -102,7 +102,7 @@ export default class FeaturePanel extends Component {
             h: {
                 min: 0,
                 max: 1,
-                ticks: [0, 0.3, 0.6, 0.9, 1]
+                ticks: [0, 0.3, 0.6, 0.9]
             }
         }
         const category = store.hightlightData.map((record, index) => {
@@ -154,17 +154,7 @@ export default class FeaturePanel extends Component {
         })
  
         return (
-        <div className="feature-container" style={{width: "100%", display:"flex", justifyContent:"center"}}>
-            <div className="slider-control">
-                <span>Highlight Window Size: (In Second)</span>
-                <Slider defaultValue={10} dots min={10} max={30} step={2} onChange={
-                    (value) => {
-                        store.HIGHLIGHT_BACKUP = store.HIGHTLIGHT_LENGTH
-                        store.HIGHTLIGHT_LENGTH = value
-                        store.playerRef.seek(store.playerState.currentTime)
-                    }
-                }></Slider>
-            </div>
+        <div className="feature-container" style={{width: "100%", display:"flex"}}>
             <Chart scale={scale} width={store.GRAPH_WIDTH - 150} height={150} padding={{left: 80}} animate={false} className="feature-chart">
                 {
                     store.selectedTime
@@ -196,6 +186,16 @@ export default class FeaturePanel extends Component {
                 } */}
             </Chart>
             <LegendPanel></LegendPanel>
+            <div className="slider-control">
+                <span>Highlight Window Size: (In Second)</span>
+                <Slider defaultValue={10} dots min={10} max={30} step={2} onChange={
+                    (value) => {
+                        store.HIGHLIGHT_BACKUP = store.HIGHTLIGHT_LENGTH
+                        store.HIGHTLIGHT_LENGTH = value
+                        store.playerRef.seek(store.playerState.currentTime)
+                    }
+                }></Slider>
+            </div>
         </div>
         )
     }
