@@ -7,21 +7,21 @@ class UIStore {
     @observable HIGHLIGHT_BACKUP = 10
     levelSet = [
         {
-            "hex": "#52c41a", 
+            "hex": "#bae7ff", 
             "name": "No Problem", 
             "rgb": "(203, 65, 84)",
             "level": "0",
             "tooltip": ""
         }, 
         {
-            "hex": "#fadb14", 
+            "hex": "#52c41a", 
             "name": "Cosmetic Problem", 
             "rgb": "(255, 43, 43)",
             "level": "1",
             "tooltip": "Need not be fixed unless extra time is available on project."
         }, 
         {
-            "hex": "#faad14", 
+            "hex": "#fadb14", 
             "name": "Minor Usability Problem", 
             "rgb": "(255, 73, 108)",
             "level": "2",
@@ -35,7 +35,7 @@ class UIStore {
             "tooltip": "Important to fix, so should be given high priority."
         }, 
         {
-            "hex": "#fa541c", 
+            "hex": "#cf1322", 
             "name": "Usability Catastrophe", 
             "rgb": "(255, 83, 73)",
             "level": "4",
