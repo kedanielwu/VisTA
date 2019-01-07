@@ -14,6 +14,8 @@ export default class MyPlayer extends Component {
     handleStateChange(state, prevState) {
         //REDUX -> MOBX store update
         store.playerState = state
+        store.selectedStartTime = Math.max(0, parseInt(state.currentTime - store.HIGHTLIGHT_LENGTH / 2))
+        store.selectedEndTime = parseInt(state.currentTime + store.HIGHTLIGHT_LENGTH / 2) 
         if (parseInt(state.currentTime, 10) > parseInt(store.selectedEndTime, 10) && parseInt(store.selectedEndTime, 10) != 0) {
             store.selectedTime = false
             store.HIGHTLIGHT_LENGTH = store.HIGHLIGHT_BACKUP
@@ -32,7 +34,7 @@ export default class MyPlayer extends Component {
         }
         return (
         <div className="my-player-wrapper">
-            <Player ref="player" src={movie} fluid={false} width={600}>
+            <Player preload="auto" ref="player" src={movie} fluid={false} width={600}>
                 <ControlBar autoHide={false}/>
             </Player>
         </div>

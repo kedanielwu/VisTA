@@ -65,6 +65,7 @@ export default class MainChart extends Component {
                 action(() => {
                     store.selectedTime = false
                     store.addingDisabled = false
+                    store.HIGHTLIGHT_LENGTH = store.HIGHLIGHT_BACKUP
                 })()
                 handleTimeUpdate('start', Math.round((ev.x - 40) * store.unitLength))
             },
@@ -76,6 +77,7 @@ export default class MainChart extends Component {
                 store.showProblemPannel = true
                 store.playerRef.seek(store.selectedStartTime)
                 store.playerRef.pause()
+                store.HIGHLIGHT_BACKUP = store.HIGHTLIGHT_LENGTH
                 store.HIGHTLIGHT_LENGTH = Math.abs(parseInt(store.selectedEndTime, 10) - parseInt(store.selectedStartTime, 10))
             }
           });
@@ -92,17 +94,35 @@ export default class MainChart extends Component {
             <Chart
              scale={this.scale} 
              width={store.GRAPH_WIDTH} 
-             height={120} padding={{left: 40, bottom: 40, top: 5}} data={store.rawData} onPlotClick={handlePlotClick} animate={false} onGetG2Instance={getG2Instance}>
+             height={80} padding={{left: 40, bottom: 40, top: 5}} data={store.rawData} onPlotClick={handlePlotClick} animate={false} onGetG2Instance={getG2Instance}>
                 {/* <Tooltip crosshairs={'y'} showTitle={false} position="botton"/> */}
                 <Axis name={x}></Axis>
                 <Axis name={y}></Axis>
-                <Geom color="grey" type="interval" position={x + '*' + y}></Geom>
+                <Geom color="grey" type="line" position={x + '*' + y}></Geom>
                 <View scale={this.scale} data={store.hightlightData} animate={false}>
                     <Geom color="red" type="area" position={x + '*h'} opacity={0.2}></Geom>
                 </View>
                 <View scale={this.scale} data={store.advanceData} animate={false}>
                     <Geom color="blue" type="interval" position={x + '*' + y} opacity={0.2}></Geom>
                 </View>
+                {/* <Tooltip
+                    containerTpl="<div class=&quot;g2-tooltip&quot;><p class=&quot;g2-tooltip-title&quot;></p><table class=&quot;g2-tooltip-list&quot;></table></div>"
+                    itemTpl="<tr class=&quot;g2-tooltip-list-item&quot;></tr>"
+                    offset={50}
+                    g2-tooltip={{
+                        position: "absolute",
+                        visibility: "hidden",
+                        border: "1px solid #efefef",
+                        backgroundColor: "white",
+                        color: "#000",
+                        opacity: "0.8",
+                        padding: "5px 15px",
+                        transition: "top 200ms,left 200ms"
+                    }}
+                    g2-tooltip-list={{
+                        margin: "10px"
+                    }}
+                /> */}
             </Chart>
         </div>
         )

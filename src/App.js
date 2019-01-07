@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {observable, action} from 'mobx';
 import {observer} from 'mobx-react';
-import {Select, Icon, Button} from 'antd';
+import {Select, Icon, Button, Switch} from 'antd';
 import logo from './logo.svg';
 import store from './UIStore'
 import './App.css';
@@ -25,12 +25,29 @@ const selectionUpdate = action((value) => {
 
 @observer
 export default class App extends Component {
-  componentDidMount() {
-    
+  @observable test = false;
+  escFunction(event){
+    if(event.keyCode === 27) {
+      if (store.playerRef && store.playerState) {
+        if (store.playerState.paused) {
+          store.playerRef.play()
+        } else {
+          store.playerRef.pause()
+        }
+      }
+    }
+  }
+  componentDidMount(){
+    document.addEventListener("keydown", this.escFunction, false);
   }
   render() {
     return(
-      <div className="main-container">
+      <div className="main-container" onKeyDown={(event) => {
+        // console.log(event.keyCode)
+        // if (store.playerRef && event.keyCode == 27) {
+        //   store.playerRef.pause()
+        // }
+      }}>
         <div className="header-container">
           <Select placeholder="Please Select" onSelect={selectionUpdate} labelInValue style={{width: 240}}>
             {store.files.map((item) => {
@@ -43,12 +60,15 @@ export default class App extends Component {
           <Button onClick={() => console.info(store)}>
             Store
           </Button>
+          <Switch checkedChildren="Test Condition" unCheckedChildren="Default Condition" onClick={() => this.test = !this.test}>
+
+          </Switch>
         </div>
         <div className="left-container">
           <div className="top-container">
             <MyPlayer />
           </div>
-          {store.playerState && store.selectedJsonPath 
+          {store.playerState && store.selectedJsonPath && this.test
             ? 
             <div className="chart-container">
               <ProblemChart />
@@ -58,13 +78,13 @@ export default class App extends Component {
             : 
             null}
         </div>
-        <div className="right-container">
+        {this.test ? <div className="right-container">
           <ProblemPanel />
 
           <div className="filter-container">
             <Filter></Filter>
           </div>
-        </div>
+        </div> : null}
       </div>
     )
   }

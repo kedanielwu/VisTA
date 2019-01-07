@@ -101,6 +101,9 @@ class UIStore {
                         break
                     }
                 }
+                if (temp.problem == 1) {
+                    temp.problem_h = 1
+                }
                 result = result.concat({...temp, index: i})
             }
             return result

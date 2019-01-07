@@ -13,7 +13,15 @@ export default class Filter extends Component {
     onSearch (value) {
         store.showChecked = true
         store.userInput.map((record) => (
-            (String(record.title).includes(value) || String(record.description).includes(value)) && (store.searchCheckedLevel.length == 0 || store.searchCheckedLevel.includes(record.color))? record.checked = true : record.checked = false
+            (String(record.description).includes(value)) && (store.searchCheckedLevel.length == 0 || store.searchCheckedLevel.includes(record.color))? record.checked = true : record.checked = false
+        ))
+    }
+
+    @action
+    onTitleSearch (value) {
+        store.showChecked = true
+        store.userInput.map((record) => (
+            (String(record.title).includes(value))? record.checked = true : record.checked = false
         ))
     }
 
@@ -66,7 +74,7 @@ export default class Filter extends Component {
             <div className="filter-container">
                 <div className="filter-left">
                     <div className="level-group">
-                        <span>
+                        <span className="filter-category">
                             Severity Level:
                         </span>
                         <Checkbox.Group onChange={this.handleChange}>
@@ -80,17 +88,23 @@ export default class Filter extends Component {
                         </Checkbox.Group>
                     </div>
                     <div className="search-group">
-                        <span>
+                        <span className="filter-category">
+                            Search In Tags: 
+                        </span>
+                        <Search onChange={this.clearHighlight} placeholder="Tags..." onSearch={this.onTitleSearch} style={{width: '100%'}}/>
+                    </div>
+                    <div className="search-group">
+                        <span className="filter-category">
                             Search In Notes: 
                         </span>
                         <Search onChange={this.clearHighlight} placeholder="Keywords..." onSearch={this.onSearch} style={{width: '100%'}}/>
                     </div>
                     <div className="advance-group">
-                        <span>
+                        <span className="filter-category">
                             Advance Search:
                         </span>
                         <div>
-                            <span>
+                            <span className="filter-sub-category">
                                 Repetition:
                             </span>
                             <Checkbox.Group onChange={(value) => {store.advanceRep = value}}>
@@ -99,7 +113,7 @@ export default class Filter extends Component {
                             </Checkbox.Group>
                         </div>
                         <div>
-                            <span>
+                            <span className="filter-sub-category">
                                 Sentiment:
                             </span>
                             <Checkbox.Group onChange={(value) => {store.advanceSent = value}}>
@@ -109,7 +123,7 @@ export default class Filter extends Component {
                             </Checkbox.Group>
                         </div>
                         <div>
-                            <span>
+                            <span className="filter-sub-category">
                                 Negation:
                             </span>
                             <Checkbox.Group onChange={(value) => {store.advanceNeg = value}}>
@@ -118,7 +132,7 @@ export default class Filter extends Component {
                             </Checkbox.Group>
                         </div>
                         <div>
-                            <span>
+                            <span className="filter-sub-category">
                                 Category:
                             </span>
                             <Checkbox.Group onChange={(value) => {store.advanceCat = value}}>
