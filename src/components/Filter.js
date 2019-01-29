@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
 import {observable, action} from 'mobx';
-import {Select, Icon, Form, Input, Button, Checkbox, Upload, Switch, Tooltip} from 'antd'  
+import {Select, Icon, Form, Input, Button, Checkbox, Upload, Switch, Tooltip, Table} from 'antd'  
 import {observer} from 'mobx-react';
 import store from '../UIStore'
 import './Filter.css'
+import EditableTable from './EditableTable.js'
 
 const Search = Input.Search
+const columns = [{
+    title: 'Title/Tag',
+    dataIndex: 'name',
+    width: 150,
+  }, {
+    title: 'Age',
+    dataIndex: 'age',
+    width: 150,
+  }, {
+    title: 'Address',
+    dataIndex: 'address',
+  }];
 @observer
 export default class Filter extends Component {
 
@@ -73,7 +86,7 @@ export default class Filter extends Component {
         return (
             <div className="filter-container">
                 <div className="filter-left">
-                    <div className="level-group">
+                    {/* <div className="level-group">
                         <span className="filter-category">
                             Severity Level:
                         </span>
@@ -98,7 +111,8 @@ export default class Filter extends Component {
                             Search In Notes: 
                         </span>
                         <Search onChange={this.clearHighlight} placeholder="Keywords..." onSearch={this.onSearch} style={{width: '100%'}}/>
-                    </div>
+                    </div> */}
+                    <EditableTable dataSource = {store.dataSource}></EditableTable>
                     <div className="advance-group">
                         <span className="filter-category">
                             Advance Search:
@@ -117,9 +131,9 @@ export default class Filter extends Component {
                                 Sentiment:
                             </span>
                             <Checkbox.Group onChange={(value) => {store.advanceSent = value}}>
+                                <Checkbox value="-1">-1</Checkbox>
                                 <Checkbox value="0">0</Checkbox>
                                 <Checkbox value="1">1</Checkbox>
-                                <Checkbox value="-1">-1</Checkbox>
                             </Checkbox.Group>
                         </div>
                         <div>
@@ -136,10 +150,10 @@ export default class Filter extends Component {
                                 Category:
                             </span>
                             <Checkbox.Group onChange={(value) => {store.advanceCat = value}}>
-                                <Checkbox value="Reading">Reading</Checkbox>
-                                <Checkbox value="Procedure">Procedure</Checkbox>
-                                <Checkbox value="Observation">Observation</Checkbox>
-                                <Checkbox value="Explanation">Explanation</Checkbox>
+                                <Checkbox value="Reading">Reading(R)</Checkbox>
+                                <Checkbox value="Procedure">Procedure(P)</Checkbox>
+                                <Checkbox value="Observation">Observation(O)</Checkbox>
+                                <Checkbox value="Explanation">Explanation(E)</Checkbox>
                             </Checkbox.Group>
                         </div>
                         {/* <Button type="primary" onChange={store.enable}>Apply</Button> */}

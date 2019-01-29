@@ -19,10 +19,20 @@ const handleSubmit = action(() => {
         checked: false, 
         master: false,
         title: store.problemTitle,
-        description: store.problemDescription
+        description: store.problemDescription,
+        key: store.count
     })
+    store.count = store.count + 1
     store.selectedColor, store.problemDescription = undefined
+    if (store.problemTitle) { 
+        store.problemTitle.map((record) => {
+            if (!store.problemTitleSet.includes(record)){
+                store.problemTitleSet.push(record)
+            }
+        })
+    }
     store.problemTitle = []
+    
 })
 
 const handleColorSelection = action((value) => {
@@ -42,27 +52,25 @@ export default class ProblemPanel extends Component {
     }
 
     render() {
+        const problemTitleSet = store.problemTitleSet.map((v) => (
+            <Option key={v} value={v}>{v}</Option>
+        ))
         return (
             <div className="form-container">
                     <div className="form-field">
-                        <Input readOnly addonBefore="Start Time:" placeholder="Please Enter Start Time For Problem Found." value={store.selectedStartTime}/>
-                    </div>
-                    <div className="form-field">
-                        <Input readOnly addonBefore="End Time:" placeholder="Please Enter End Time For Problem Found." value={store.selectedEndTime}/>
+                        <Input readOnly addonBefore="Current Time:" value={new Date((store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2) * 1000).toISOString().substr(14, 5)}/>
                     </div>
                     <div className="form-field">
                         <Select value={store.problemTitle} onChange={action((value) => {store.problemTitle = value})} mode="tags" style={{width: '100%'}} placeholder="Please Select or Input Problem Title.">
                             {
-                                store.problemTitleSet.map((v) => (
-                                    <Option key={v} value={v}>{v}</Option>
-                                ))
+                                problemTitleSet
                             }
                         </Select>
                     </div>
                     <div className="form-field">
-                        <TextArea value={store.problemDescription} onChange={action((e) => {store.problemDescription = e.target.value})} autosize placeholder="Please Enter A Problem Description."/>
+                        <TextArea autosize={{minRows: 7}} value={store.problemDescription} onChange={action((e) => {store.problemDescription = e.target.value})} placeholder="Please Enter A Problem Description."/>
                     </div>
-                    <div className="form-field">
+                    {/* <div className="form-field">
                         <Select value={store.selectedColor} defaultValue={store.levelSet[0].hex} style={{width: '100%'}} onSelect={handleColorSelection}>
                             {
                                 store.levelSet.map((color) => (
@@ -70,7 +78,7 @@ export default class ProblemPanel extends Component {
                                 ))
                             }
                         </Select>
-                    </div>
+                    </div> */}
                     <div className="form-field submit-button">
                         <Button type="primary" style={{width: '100%'}} onClick={handleSubmit} disabled={store.addingDisabled} >
                            Add

@@ -11,6 +11,40 @@ notification.config({
     top: 450,
 })
 
+const categoryColor = {
+    "Reading": "#722ed1",
+    "Procedure": "#a0d911",
+    "Observation": "#f5222d",
+    "Explanation": "#1890ff"
+
+}
+
+const negationColor = (value) => {
+    if (value == 0) {
+      return "#a0d911"
+
+    } else if (value == 1) {
+        return "#fa541c"
+    }
+    // else if (value == -1) {
+    //     return "#faad14"
+    // }
+}
+
+const repetitionColor = (value) => (
+    value == 1 ?  "#fa541c" : "#a0d911"
+)
+
+const sentimentColor = (value) => {
+    if (value == 0) {
+        return "#a0d911"
+    } else if (value == 1) {
+        return "#fa541c"
+    } else {
+        return "#faad14"
+    }
+}
+
 const handleClick = ((ev) => {
     if (ev.data) {
         store.playerRef.pause()
@@ -24,7 +58,7 @@ const handleClick = ((ev) => {
                 store.selectedColor = record.color
                 store.HIGHTLIGHT_LENGTH = record.end_index - record.start_index
                 store.addingDisabled = true
-                store.playerRef.seek(ev.data[0]._origin.index)
+                // store.playerRef.seek(ev.data[0]._origin.index)
             } else {
             }
         }            
@@ -44,45 +78,107 @@ export default class ProblemChart extends Component {
         },
         problem: {
             min:0,
-            max:1
+            max:1,
+            ticks: [0, 0.3, 0.6, 0.9]
         }
 
     }
 
     render() {
-        const userProblem = store.userInput.map((record) => {
-            if (!store.showChecked) {
-                const startObj = {index: record.start_index, problem: 0}
-                const endObj = {index: record.end_index, problem: 0}
-                return (
-                    <View key={Math.random()} data={[startObj, endObj]} animate={false}>
-                        {/* <Geom color={record.color} type="point" shape="hexagon" size={4} position="index*problem"></Geom> */}
-                        <Geom color={record.color} type="line" size={24} position="index*problem"></Geom>
-                    </View>
-                )
-            } else {
-                if (record.checked == true) {
-                    const startObj = {index: record.start_index, problem: 0}
-                    const endObj = {index: record.end_index, problem: 0}
-                    return (
-                        <View key={Math.random()} data={[startObj, endObj]} animate={false}>
-                            {/* <Geom color={record.color} type="point" shape="hexagon" size={4} position="index*problem"></Geom> */}
-                            <Geom color={record.color} type="line" size={24} position="index*problem"></Geom>
-                        </View>
-                    )
-                }
-            }
+        const category = store.userInput.map((record) => {
+            const startObj = {index: record.start_index, problem: 0}
+            const endObj = {index: record.end_index, problem: 0}
+            const color = store.rawData[record.start_index + store.HIGHTLIGHT_LENGTH / 2].category
+            return (
+                <View key={Math.random()} data={[startObj, endObj]} animate={false}>
+                    {/* <Geom color={record.color} type="point" shape="hexagon" size={4} position="index*problem"></Geom> */}
+                    <Axis name="problem" visible tickLine={null} label={{textStyle: {fontSize: "14", fill: "grey", fontWeight: "normal"}}}/>
+                    <Axis name="index" visible={false}></Axis>
+                    <Geom color={categoryColor[color]} type="line" size={7} position="index*problem"></Geom>
+                </View>
+            )
         })
+
+        const negation = store.userInput.map((record) => {
+            const startObj = {index: record.start_index, problem: 0.3}
+            const endObj = {index: record.end_index, problem: 0.3}
+            const color = store.rawData[record.start_index + store.HIGHTLIGHT_LENGTH / 2].negation
+            return (
+                <View key={Math.random()} data={[startObj, endObj]} animate={false}>
+                    {/* <Geom color={record.color} type="point" shape="hexagon" size={4} position="index*problem"></Geom> */}
+                    <Geom color={negationColor(color)} type="line" size={7} position="index*problem"></Geom>
+                </View>
+            )
+        })
+
+        const repetition = store.userInput.map((record) => {
+            const startObj = {index: record.start_index, problem: 0.6}
+            const endObj = {index: record.end_index, problem: 0.6}
+            const color = store.rawData[record.start_index + store.HIGHTLIGHT_LENGTH / 2].repetition
+            return (
+                <View key={Math.random()} data={[startObj, endObj]} animate={false}>
+                    {/* <Geom color={record.color} type="point" shape="hexagon" size={4} position="index*problem"></Geom> */}
+                    <Geom color={repetitionColor(color)} type="line" size={7} position="index*problem"></Geom>
+                </View>
+            )
+        })
+
+        const sentiment = store.userInput.map((record) => {
+            
+            const startObj = {index: record.start_index, problem: 0.9}
+            const endObj = {index: record.end_index, problem: 0.9}
+            const color = store.rawData[record.start_index + store.HIGHTLIGHT_LENGTH / 2].sentiment_gt
+            return (
+                <View key={Math.random()} data={[startObj, endObj]} animate={false}>
+                    {/* <Geom color={record.color} type="point" shape="hexagon" size={4} position="index*problem"></Geom> */}
+                    <Geom color={sentimentColor(color)} type="line" size={7} position="index*problem"></Geom>
+                </View>
+            ) 
+        })
+        // const userProblem = store.userInput.map((record) => {
+        //     if (!store.showChecked) {
+        //         const startObj = {index: record.start_index, problem: 0}
+        //         const endObj = {index: record.end_index, problem: 0}
+        //         const categoryColor = store.rawData[record.start_index + store.HIGHTLIGHT_LENGTH / 2].category
+        //         return (
+        //             <View key={Math.random()} data={[startObj, endObj]} animate={false}>
+        //                 {/* <Geom color={record.color} type="point" shape="hexagon" size={4} position="index*problem"></Geom> */}
+        //                 <Geom color={categoryColor[categoryColor]} type="line" size={24} position="index*problem"></Geom>
+        //             </View>
+        //         )
+        //     } else {
+        //         if (record.checked == true) {
+        //             const startObj = {index: record.start_index, problem: 0}
+        //             const endObj = {index: record.end_index, problem: 0}
+        //             const color = store.rawData[record.start_index + store.HIGHTLIGHT_LENGTH / 2].category
+        //             return (
+        //                 <View key={Math.random()} data={[startObj, endObj]} animate={false}>
+        //                 {/* <Geom color={record.color} type="point" shape="hexagon" size={4} position="index*problem"></Geom> */}
+        //                     <Geom color={categoryColor[color]} type="line" size={24} position="index*problem"></Geom>
+        //                 </View>
+        //             )
+        //         }
+        //     }
+        // })
 
         return (
         <div>
-            <Chart scale={this.scale} width={store.GRAPH_WIDTH} height={40} padding={{bottom: 0, left: 40}} animate={false} onPlotClick={handleClick}>
-               {
-                   userProblem.filter(n => n)
-               }
-                <View scale={this.scale} animate={false} data={[{index: store.playerState.currentTime, problem:1}]}>
+            <Chart scale={this.scale} width={store.GRAPH_WIDTH} height={40} padding={{bottom: 10, left: 10, right:10}} animate={false} onPlotClick={handleClick}>
+                {
+                    category
+                }
+                {
+                    negation
+                }
+                {
+                    repetition
+                }
+                {
+                    sentiment
+                }
+                {/* <View scale={this.scale} animate={false} data={[{index: store.playerState.currentTime, problem:1}]}>
                     <Geom color="red" size={1} type="interval" position="index*problem"></Geom>
-                </View>
+                </View> */}
             </Chart>
         </div>
         )

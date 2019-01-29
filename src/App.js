@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {observable, action} from 'mobx';
 import {observer} from 'mobx-react';
-import {Select, Icon, Button, Switch} from 'antd';
+import {Select, Icon, Button, Radio} from 'antd';
 import logo from './logo.svg';
 import store from './UIStore'
 import './App.css';
@@ -17,6 +17,7 @@ import {Player, ControlBar} from "video-react"
 import { MiniArea } from 'ant-design-pro/lib/Charts';
 
 const Option = Select.Option
+const RadioGroup = Radio.Group
 const selectionUpdate = action((value) => {
   store.selectedFile = value.label
   store.selectedVideoPath = "http://127.0.0.1:8080/video?id=" + value.key
@@ -25,7 +26,7 @@ const selectionUpdate = action((value) => {
 
 @observer
 export default class App extends Component {
-  @observable test = false;
+  @observable test = true;
   escFunction(event){
     if(event.keyCode === 27) {
       if (store.playerRef && store.playerState) {
@@ -60,31 +61,30 @@ export default class App extends Component {
           <Button onClick={() => console.info(store)}>
             Store
           </Button>
-          <Switch checkedChildren="Test Condition" unCheckedChildren="Default Condition" onClick={() => this.test = !this.test}>
+          <RadioGroup onChange={(e) => {store.testCondition = e.target.value}} value={store.testCondition}>
+            <Radio value={1}>Default</Radio>
+            <Radio value={2}>Prediction Visualization</Radio>
+            <Radio value={3}>Full</Radio>
+          </RadioGroup>
 
-          </Switch>
         </div>
         <div className="left-container">
           <div className="top-container">
             <MyPlayer />
           </div>
-          {store.playerState && store.selectedJsonPath && this.test
-            ? 
             <div className="chart-container">
-              <ProblemChart />
-              <MainChart x="index" y="problem" showProblem={true}/>
-              <FeaturePanel size={store.HIGHTLIGHT_LENGTH} cursor={store.cursorLocation}></FeaturePanel>
+              {store.playerState && store.selectedJsonPath ? <ProblemChart /> : null}
+              {store.testCondition != 1 && store.playerState && store.selectedJsonPath ? <MainChart x="index" y="problem" showProblem={true}/> : null}
+              {store.testCondition == 3 && store.playerState && store.selectedJsonPath? <FeaturePanel size={store.HIGHTLIGHT_LENGTH} cursor={store.cursorLocation}></FeaturePanel> : null}
             </div> 
-            : 
-            null}
         </div>
-        {this.test ? <div className="right-container">
+        <div className="right-container">
           <ProblemPanel />
 
           <div className="filter-container">
             <Filter></Filter>
           </div>
-        </div> : null}
+        </div>
       </div>
     )
   }
