@@ -64,10 +64,10 @@ const LegendPanel = () => (
         </div>
         <div className="category-container">
             <span>
-                <Tag color={categoryColor.Reading}>Reading</Tag>
-                <Tag color={categoryColor.Procedure}>Procedure</Tag>
-                <Tag color={categoryColor.Observation}>Observation</Tag>
-                <Tag color={categoryColor.Explanation}>Explanation</Tag>
+                <Tag color={categoryColor.Reading}>R</Tag>
+                <Tag color={categoryColor.Procedure}>P</Tag>
+                <Tag color={categoryColor.Observation}>O</Tag>
+                <Tag color={categoryColor.Explanation}>E</Tag>
             </span>
         </div>
     </div>
@@ -186,7 +186,7 @@ export default class FeaturePanel extends Component {
                 } */}
             </Chart>
             <LegendPanel></LegendPanel>
-            <div className="slider-control">
+            {/* <div className="slider-control">
                 <span>Highlight Window Size: (In Second)</span>
                 <Slider defaultValue={10} dots min={10} max={30} step={2} onChange={
                     (value) => {
@@ -195,7 +195,7 @@ export default class FeaturePanel extends Component {
                         store.playerRef.seek(store.playerState.currentTime)
                     }
                 }></Slider>
-            </div>
+            </div> */}
         </div>
         )
     }

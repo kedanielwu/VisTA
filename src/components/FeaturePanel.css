@@ -9,7 +9,7 @@
 }
 
 .legend-container {
-    width: 120px;
+    width: 130px;
     padding-left: 20px;
 }
 
@@ -24,4 +24,8 @@
 .sentiment-container {
     padding-top: 10px;
     padding-bottom: 15px;
+}
+
+.ant-tag {
+    margin-right: 2px
 }

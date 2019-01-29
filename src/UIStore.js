@@ -1,6 +1,7 @@
 import {observable, action, computed} from 'mobx';
 import {files} from './static/data'
 class UIStore {
+    start_time = Date.now()
     files = files
     GRAPH_WIDTH = 600
     @observable HIGHTLIGHT_LENGTH = 10
@@ -42,12 +43,13 @@ class UIStore {
             "tooltip": "Imperative to fix this before product can be released."
         }, 
     ]
-    problemTitleSet = [
+    @observable problemTitleSet = [
         'tag1',
         'tag2',
         'tag3',
         'tag4'
     ]
+    @observable testCondition = 3
     @observable showProblemPannel
     @observable selectedFile
     @observable selectedVideoPath
@@ -76,6 +78,8 @@ class UIStore {
     @observable advanceSent = []
     @observable addingDisabled = false
     @observable searchCheckedLevel = []
+    @observable dataSource = []
+    @observable count = 0
     @computed get cursorLocation() {
         if (!this.selectedTime) {
             return -1
@@ -84,7 +88,7 @@ class UIStore {
     }
     @computed get unitLength() {
         if (this.selectedJsonPath) {
-            return this.rawData.length / (this.GRAPH_WIDTH - 40)
+            return this.rawData.length / (this.GRAPH_WIDTH - 7)
         }
     }
     @computed get rawData() {
@@ -119,6 +123,13 @@ class UIStore {
         return this.rawData.slice(lowerBound, currentTime + this.HIGHTLIGHT_LENGTH / 2).map(item => ({...item, h:1}))
     }
 
+    @computed get userProblem() {
+        const result = []
+        this.userInput.forEach((record) => {
+            result.push(this.rawData.slice(record.start_index, record.end_index).map(item => ({...item, h:1, color:record.color})))
+        })
+        return result
+    }
     @computed get advanceData () {
         const result = []
         this.rawData.forEach((record) => {
@@ -133,7 +144,7 @@ class UIStore {
                 &&
                 (this.advanceNeg.length != 0 || this.advanceCat.length != 0 || this.advanceRep != 0 || this.advanceSent != 0)
             ) {
-                result.push({...record, problem: 1})
+                result.push({...record, problem:1})
             }
         })
         return result
