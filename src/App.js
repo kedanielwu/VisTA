@@ -96,9 +96,9 @@ export default class App extends Component {
             <MyPlayer />
           </div>
             <div className="chart-container">
-              {store.playerState && store.selectedJsonPath ? <ProblemChart /> : null}
+              {store.testCondition == 3 && store.playerState && store.selectedJsonPath ? <ProblemChart /> : null}
               {store.testCondition != 1 && store.playerState && store.selectedJsonPath ? <MainChart x="index" y="problem" showProblem={true}/> : null}
-              {store.testCondition == 3 && store.playerState && store.selectedJsonPath? <FeaturePanel size={store.HIGHTLIGHT_LENGTH} cursor={store.cursorLocation}></FeaturePanel> : null}
+              {store.testCondition == 3 && store.playerState && store.selectedJsonPath ? <FeaturePanel size={store.HIGHTLIGHT_LENGTH} cursor={store.cursorLocation}></FeaturePanel> : null}
             </div> 
         </div>
         <div className="right-container">

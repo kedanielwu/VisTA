@@ -113,7 +113,7 @@ export default class Filter extends Component {
                         <Search onChange={this.clearHighlight} placeholder="Keywords..." onSearch={this.onSearch} style={{width: '100%'}}/>
                     </div> */}
                     <EditableTable dataSource = {store.dataSource}></EditableTable>
-                    <div className="advance-group">
+                    {store.testCondition == 3 && store.playerState && store.selectedJsonPath ? <div className="advance-group">
                         <span className="filter-category">
                             Advance Search:
                         </span>
@@ -157,7 +157,7 @@ export default class Filter extends Component {
                             </Checkbox.Group>
                         </div>
                         {/* <Button type="primary" onChange={store.enable}>Apply</Button> */}
-                    </div>
+                    </div> : null}
                 </div>
                 {/* <div className="master-group">
                     <span>
