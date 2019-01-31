@@ -1,7 +1,8 @@
 import {observable, action, computed} from 'mobx';
 import {files} from './static/data'
 class UIStore {
-    start_time = Date.now()
+    @observable start_time = 0
+    @observable sessionId = 0
     files = files
     GRAPH_WIDTH = 600
     @observable HIGHTLIGHT_LENGTH = 10
@@ -61,6 +62,8 @@ class UIStore {
     @observable userInput = [
 
     ]
+    @observable playBackInteraction = []
+    @observable recordInteraction = []
     @observable showChecked = false
     @observable masterInput
     @observable showMaster
@@ -142,11 +145,12 @@ class UIStore {
                 &&
                 (this.advanceSent.includes(String(record.sentiment_gt)) || this.advanceSent.length == 0)
                 &&
-                (this.advanceNeg.length != 0 || this.advanceCat.length != 0 || this.advanceRep != 0 || this.advanceSent != 0)
+                (this.advanceNeg.length != 0 || this.advanceCat.length != 0 || this.advanceRep.length != 0 || this.advanceSent.length != 0)
             ) {
                 result.push({...record, problem:1})
             }
         })
+        console.log(result)
         return result
     }
 

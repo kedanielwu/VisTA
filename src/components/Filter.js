@@ -149,7 +149,7 @@ export default class Filter extends Component {
                             <span className="filter-sub-category">
                                 Category:
                             </span>
-                            <Checkbox.Group onChange={(value) => {store.advanceCat = value}}>
+                            <Checkbox.Group value={store.advanceCat} onChange={(value) => {store.advanceCat = value}}>
                                 <Checkbox value="Reading">Reading(R)</Checkbox>
                                 <Checkbox value="Procedure">Procedure(P)</Checkbox>
                                 <Checkbox value="Observation">Observation(O)</Checkbox>

@@ -51,13 +51,17 @@ const handleClick = ((ev) => {
         store.userInput.map((record) => {
             if (record.start_index == ev.data[0]._origin.index && record.end_index == ev.data[1]._origin.index) {
                 // notification.open({message: record.title, description: record.description, icon: <Icon type="info-circle" style={{color: record.color}}/>})
-                store.selectedStartTime = record.start_index
-                store.selectedEndTime = record.end_index
-                store.problemTitle = record.title
-                store.problemDescription = record.description
-                store.selectedColor = record.color
-                store.HIGHTLIGHT_LENGTH = record.end_index - record.start_index
-                store.addingDisabled = true
+                // store.selectedStartTime = record.start_index
+                // store.selectedEndTime = record.end_index
+                // store.problemTitle = record.title
+                // store.problemDescription = record.description
+                // store.selectedColor = record.color
+                // store.HIGHTLIGHT_LENGTH = record.end_index - record.start_index
+                console.log(record.feature)
+                store.advanceCat = [record.feature.category]
+                store.advanceNeg = [record.feature.negation]
+                store.advanceRep = [record.feature.repetition]
+                store.advanceSent = [record.feature.sentiment]
                 // store.playerRef.seek(ev.data[0]._origin.index)
             } else {
             }
