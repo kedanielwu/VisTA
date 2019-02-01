@@ -20,7 +20,14 @@ const handleSubmit = action(() => {
         master: false,
         title: store.problemTitle,
         description: store.problemDescription,
-        key: store.count
+        key: store.count,
+        feature: {
+            sentiment: store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].sentiment_gt,
+            negation: store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].negation,
+            repetition: store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].repetition,
+            category: store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].category,
+        },
+        sessionTime: (Date.now() - store.start_time) / 1000
     })
     store.count = store.count + 1
     store.selectedColor, store.problemDescription = undefined

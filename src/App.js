@@ -38,6 +38,26 @@ export default class App extends Component {
       }
     }
   }
+  startFunction() {
+    store.start_time = Date.now()
+    store.sessionId = window.setInterval(() => {
+      store.playBackInteraction.push({sessionTime: (Date.now() - store.start_time) / 1000, videoTime: store.playerState.currentTime, search: {cat: store.advanceCat, neg: store.advanceNeg, rep: store.advanceRep, sent: store.advanceSent}})
+
+    }, 1000)
+  }
+
+  endFunction() {
+    window.clearInterval(store.sessionId)
+    function download(content, fileName, contentType) {
+      var a = document.createElement("a");
+      var file = new Blob([content], {type: contentType});
+      a.href = URL.createObjectURL(file);
+      a.download = fileName;
+      a.click();
+    }
+    download(JSON.stringify(store.playBackInteraction), 'playback.txt', 'text/plain')
+    download(JSON.stringify(store.userInput), 'problem.txt', 'text/plain')
+  }
   componentDidMount(){
     document.addEventListener("keydown", this.escFunction, false);
   }
@@ -58,8 +78,11 @@ export default class App extends Component {
             }
             )}
           </Select>
-          <Button onClick={() => console.info(store)}>
-            Store
+          <Button onClick={this.startFunction}>
+            Start
+          </Button>
+          <Button onClick={this.endFunction}>
+            Finish
           </Button>
           <RadioGroup onChange={(e) => {store.testCondition = e.target.value}} value={store.testCondition}>
             <Radio value={1}>Default</Radio>
@@ -73,9 +96,9 @@ export default class App extends Component {
             <MyPlayer />
           </div>
             <div className="chart-container">
-              {store.playerState && store.selectedJsonPath ? <ProblemChart /> : null}
+              {store.testCondition == 3 && store.playerState && store.selectedJsonPath ? <ProblemChart /> : null}
               {store.testCondition != 1 && store.playerState && store.selectedJsonPath ? <MainChart x="index" y="problem" showProblem={true}/> : null}
-              {store.testCondition == 3 && store.playerState && store.selectedJsonPath? <FeaturePanel size={store.HIGHTLIGHT_LENGTH} cursor={store.cursorLocation}></FeaturePanel> : null}
+              {store.testCondition == 3 && store.playerState && store.selectedJsonPath ? <FeaturePanel size={store.HIGHTLIGHT_LENGTH} cursor={store.cursorLocation}></FeaturePanel> : null}
             </div> 
         </div>
         <div className="right-container">
