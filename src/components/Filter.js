@@ -119,9 +119,18 @@ export default class Filter extends Component {
                         </span>
                         <div>
                             <span className="filter-sub-category">
-                                Repetition:
+                                Low Pitch:
                             </span>
-                            <Checkbox.Group onChange={(value) => {store.advanceRep = value}}>
+                            <Checkbox.Group onChange={(value) => {store.advanceLowPitch = value}}>
+                                <Checkbox value="0">0</Checkbox>
+                                <Checkbox value="1">1</Checkbox>
+                            </Checkbox.Group>
+                        </div>
+                        <div>
+                            <span className="filter-sub-category">
+                                High Speech Rate:
+                            </span>
+                            <Checkbox.Group onChange={(value) => {store.advanceHighPitch = value}}>
                                 <Checkbox value="0">0</Checkbox>
                                 <Checkbox value="1">1</Checkbox>
                             </Checkbox.Group>
@@ -132,6 +141,15 @@ export default class Filter extends Component {
                             </span>
                             <Checkbox.Group onChange={(value) => {store.advanceSent = value}}>
                                 <Checkbox value="-1">-1</Checkbox>
+                                <Checkbox value="0">0</Checkbox>
+                                <Checkbox value="1">1</Checkbox>
+                            </Checkbox.Group>
+                        </div>
+                        <div>
+                            <span className="filter-sub-category">
+                                Low Speech Rate:
+                            </span>
+                            <Checkbox.Group onChange={(value) => {store.advanceRep = value}}>
                                 <Checkbox value="0">0</Checkbox>
                                 <Checkbox value="1">1</Checkbox>
                             </Checkbox.Group>

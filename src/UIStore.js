@@ -79,6 +79,8 @@ class UIStore {
     @observable advanceNeg = []
     @observable advanceCat = []
     @observable advanceSent = []
+    @observable advanceHighPitch = []
+    @observable advanceLowPitch = []
     @observable addingDisabled = false
     @observable searchCheckedLevel = []
     @observable dataSource = []
@@ -139,13 +141,17 @@ class UIStore {
             if (
                 (this.advanceNeg.includes(String(record.negation))  || this.advanceNeg.length == 0)
                 && 
-                (this.advanceRep.includes(String(record.repetition)) || this.advanceRep.length == 0)
+                (this.advanceRep.includes(String(record.abnormal_speechrate[1])) || this.advanceRep.length == 0)
                 && 
                 (this.advanceCat.includes(String(record.category)) || this.advanceCat.length == 0)
                 &&
                 (this.advanceSent.includes(String(record.sentiment_gt)) || this.advanceSent.length == 0)
                 &&
-                (this.advanceNeg.length != 0 || this.advanceCat.length != 0 || this.advanceRep.length != 0 || this.advanceSent.length != 0)
+                (this.advanceHighPitch.includes(String(record.abnormal_pitch[0])) || this.advanceHighPitch.length == 0)
+                &&
+                (this.advanceLowPitch.includes(String(record.abnormal_pitch[1])) || this.advanceLowPitch.length == 0)
+                &&
+                (this.advanceNeg.length != 0 || this.advanceCat.length != 0 || this.advanceRep.length != 0 || this.advanceSent.length != 0 || this.advanceHighPitch.length != 0 || this.advanceLowPitch.length != 0)
             ) {
                 result.push({...record, problem:1})
             }
@@ -171,12 +177,12 @@ class UIStore {
             },
             problem: {
                 type : "cat",
-                values: ["category", "negation", "repetition", "sentiment"]
+                values: ["category", "negation", "low speechrate", "sentiment", "high pitch", "low pitch"]
             },
             h: {
                 min: 0,
-                max: 1,
-                ticks: [0, 0.3, 0.6, 0.9, 1]
+                max: 1.2,
+                ticks: [0, 0.3, 0.6, 0.9, 1, 1.2]
             }
         }
     }
