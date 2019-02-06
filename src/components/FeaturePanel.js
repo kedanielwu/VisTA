@@ -43,6 +43,18 @@ const sentimentColor = (value) => {
 
 const LegendPanel = () => (
     <div className="legend-container">
+        <div className="repetition-container">
+            <span>
+                <Tag color={repetitionColor(0)}>0</Tag>
+                <Tag color={repetitionColor(1)}>1</Tag>
+            </span>
+        </div>
+        <div className="repetition-container">
+            <span>
+                <Tag color={repetitionColor(0)}>0</Tag>
+                <Tag color={repetitionColor(1)}>1</Tag>
+            </span>
+        </div>
         <div className="sentiment-container">
             <span>
                 <Tag color={sentimentColor(-1)}>-1</Tag>
@@ -97,12 +109,12 @@ export default class FeaturePanel extends Component {
             },
             problem: {
                 type : "cat",
-                values: ["category", "negation", "repetition", "sentiment"]
+                values: ["category", "negation", "low speechrate", "sentiment", "high pitch", "low pitch"]
             },
             h: {
                 min: 0,
-                max: 1,
-                ticks: [0, 0.3, 0.6, 0.9]
+                max: 1.2,
+                ticks: [0, 0.3, 0.6, 0.9, 1, 1.2]
             }
         }
         const category = store.hightlightData.map((record, index) => {
@@ -131,12 +143,12 @@ export default class FeaturePanel extends Component {
         })
 
         const repetition = store.hightlightData.map((record, index) => {
-            const startObj = {index: index, problem: "repetition"}
-            const endObj = {index: index + 1, problem: "repetition"}
+            const startObj = {index: index, problem: "low speechrate"}
+            const endObj = {index: index + 1, problem: "low speechrate"}
             return (
                 <View key={Math.random()} data={[startObj, endObj]} animate={false}>
                     {/* <Geom color={record.color} type="point" shape="hexagon" size={4} position="index*problem"></Geom> */}
-                    <Geom color={repetitionColor(record.repetition)} type="line" size={14} position="index*problem"></Geom>
+                    <Geom color={repetitionColor(record.abnormal_speechrate[1])} type="line" size={14} position="index*problem"></Geom>
                 </View>
             )
         })
@@ -152,18 +164,42 @@ export default class FeaturePanel extends Component {
                 </View>
             ) 
         })
+
+        const highpitch = store.hightlightData.map((record, index) => {
+            
+            const startObj = {index: index, problem: "high pitch"}
+            const endObj = {index: index + 1, problem: "high pitch"}
+            return (
+                <View key={Math.random()} data={[startObj, endObj]} animate={false}>
+                    {/* <Geom color={record.color} type="point" shape="hexagon" size={4} position="index*problem"></Geom> */}
+                    <Geom color={repetitionColor(record.abnormal_pitch[0])} type="line" size={14} position="index*problem"></Geom>
+                </View>
+            ) 
+        })
+
+        const lowpitch = store.hightlightData.map((record, index) => {
+            
+            const startObj = {index: index, problem: "low pitch"}
+            const endObj = {index: index + 1, problem: "low pitch"}
+            return (
+                <View key={Math.random()} data={[startObj, endObj]} animate={false}>
+                    {/* <Geom color={record.color} type="point" shape="hexagon" size={4} position="index*problem"></Geom> */}
+                    <Geom color={repetitionColor(record.abnormal_pitch[1])} type="line" size={14} position="index*problem"></Geom>
+                </View>
+            ) 
+        })
  
         return (
         <div className="feature-container" style={{width: "100%", display:"flex"}}>
-            <Chart scale={scale} width={store.GRAPH_WIDTH - 150} height={150} padding={{left: 80}} animate={false} className="feature-chart">
+            <Chart scale={scale} width={store.GRAPH_WIDTH - 150} height={150} padding={{left: 120}} animate={false} className="feature-chart">
                 {
                     store.selectedTime
                     ?
-                    <View scale={scale} animate={false} data={[{index: store.cursorLocation, problem:"sentiment"}]}>
+                    <View scale={scale} animate={false} data={[{index: store.cursorLocation, problem:"low pitch"}]}>
                         <Geom color="red" size={1} type="interval" position="index*problem"></Geom>
                     </View>
                     :
-                    <View scale={scale} animate={false} data={[{index: store.HIGHTLIGHT_LENGTH / 2, problem:"sentiment"}]}>
+                    <View scale={scale} animate={false} data={[{index: store.HIGHTLIGHT_LENGTH / 2, problem:"low pitch"}]}>
                         <Geom color="red" size={1} type="interval" position="index*problem"></Geom>
                     </View>
                 }
@@ -178,6 +214,12 @@ export default class FeaturePanel extends Component {
                 }
                 {
                     sentiment
+                }
+                {
+                    highpitch
+                }
+                {
+                    lowpitch
                 }
                 {/* {
                     <View animate={false} data={[{index: parseInt(store.HIGHTLIGHT_LENGTH / 2), problem:"sentiment"}]}>

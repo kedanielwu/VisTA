@@ -27,6 +27,8 @@ const selectionUpdate = action((value) => {
 @observer
 export default class App extends Component {
   @observable test = true;
+  @observable enableStart = true;
+  @observable enableFinsh = false;
   escFunction(event){
     if(event.keyCode === 27) {
       if (store.playerRef && store.playerState) {
@@ -39,14 +41,17 @@ export default class App extends Component {
     }
   }
   startFunction() {
+    this.enableStart = false;
+    this.enableFinsh = true;
     store.start_time = Date.now()
     store.sessionId = window.setInterval(() => {
       store.playBackInteraction.push({sessionTime: (Date.now() - store.start_time) / 1000, videoTime: store.playerState.currentTime, search: {cat: store.advanceCat, neg: store.advanceNeg, rep: store.advanceRep, sent: store.advanceSent}})
-
     }, 1000)
   }
 
   endFunction() {
+    this.enableStart = true;
+    this.enableFinsh = false
     window.clearInterval(store.sessionId)
     function download(content, fileName, contentType) {
       var a = document.createElement("a");
@@ -60,6 +65,8 @@ export default class App extends Component {
   }
   componentDidMount(){
     document.addEventListener("keydown", this.escFunction, false);
+    this.startFunction = this.startFunction.bind(this)
+    this.endFunction = this.endFunction.bind(this)
   }
   render() {
     return(
@@ -78,10 +85,10 @@ export default class App extends Component {
             }
             )}
           </Select>
-          <Button onClick={this.startFunction}>
+          <Button disabled={!this.enableStart} onClick={this.startFunction}>
             Start
           </Button>
-          <Button onClick={this.endFunction}>
+          <Button disabled={!this.enableFinsh} onClick={this.endFunction}>
             Finish
           </Button>
           <RadioGroup onChange={(e) => {store.testCondition = e.target.value}} value={store.testCondition}>
@@ -97,7 +104,7 @@ export default class App extends Component {
           </div>
             <div className="chart-container">
               {store.testCondition == 3 && store.playerState && store.selectedJsonPath ? <ProblemChart /> : null}
-              {store.testCondition != 1 && store.playerState && store.selectedJsonPath ? <MainChart x="index" y="problem" showProblem={true}/> : null}
+              {store.testCondition != 1 && store.playerState && store.selectedJsonPath ? <MainChart x="index" y="prediction" showProblem={true}/> : null}
               {store.testCondition == 3 && store.playerState && store.selectedJsonPath ? <FeaturePanel size={store.HIGHTLIGHT_LENGTH} cursor={store.cursorLocation}></FeaturePanel> : null}
             </div> 
         </div>
