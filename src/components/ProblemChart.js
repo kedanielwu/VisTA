@@ -37,11 +37,11 @@ const repetitionColor = (value) => (
 
 const sentimentColor = (value) => {
     if (value == 0) {
-        return "#a0d911"
+        return "#faad14" 
     } else if (value == 1) {
-        return "#fa541c"
+        return "#a0d911"
     } else {
-        return "#faad14"
+        return "#fa541c"
     }
 }
 
@@ -82,16 +82,16 @@ export default class ProblemChart extends Component {
         },
         problem: {
             min:0,
-            max:1,
-            ticks: [0, 0.3, 0.6, 0.9]
+            max:1.2,
+            ticks: [0, 0.3, 0.6, 0.9, 1.2]
         }
 
     }
 
     render() {
         const category = store.userInput.map((record) => {
-            const startObj = {index: record.start_index, problem: 0}
-            const endObj = {index: record.end_index, problem: 0}
+            const startObj = {index: record.start_index, problem: 0.9}
+            const endObj = {index: record.end_index, problem: 0.9}
             const color = store.rawData[record.start_index + store.HIGHTLIGHT_LENGTH / 2].category
             return (
                 <View key={Math.random()} data={[startObj, endObj]} animate={false}>
@@ -116,9 +116,9 @@ export default class ProblemChart extends Component {
         })
 
         const repetition = store.userInput.map((record) => {
-            const startObj = {index: record.start_index, problem: 0.6}
-            const endObj = {index: record.end_index, problem: 0.6}
-            const color = store.rawData[record.start_index + store.HIGHTLIGHT_LENGTH / 2].repetition
+            const startObj = {index: record.start_index, problem: 0}
+            const endObj = {index: record.end_index, problem: 0}
+            const color = store.rawData[record.start_index + store.HIGHTLIGHT_LENGTH / 2].abnormal_speechrate[1]
             return (
                 <View key={Math.random()} data={[startObj, endObj]} animate={false}>
                     {/* <Geom color={record.color} type="point" shape="hexagon" size={4} position="index*problem"></Geom> */}
@@ -129,8 +129,8 @@ export default class ProblemChart extends Component {
 
         const sentiment = store.userInput.map((record) => {
             
-            const startObj = {index: record.start_index, problem: 0.9}
-            const endObj = {index: record.end_index, problem: 0.9}
+            const startObj = {index: record.start_index, problem: 1.2}
+            const endObj = {index: record.end_index, problem: 1.2}
             const color = store.rawData[record.start_index + store.HIGHTLIGHT_LENGTH / 2].sentiment_gt
             return (
                 <View key={Math.random()} data={[startObj, endObj]} animate={false}>
@@ -138,6 +138,30 @@ export default class ProblemChart extends Component {
                     <Geom color={sentimentColor(color)} type="line" size={7} position="index*problem"></Geom>
                 </View>
             ) 
+        })
+
+        const low_pitch = store.userInput.map((record) => {
+            const startObj = {index: record.start_index, problem: 0.3}
+            const endObj = {index: record.end_index, problem: 0.3}
+            const color = store.rawData[record.start_index + store.HIGHTLIGHT_LENGTH / 2].abnormal_pitch[1]
+            return (
+                <View key={Math.random()} data={[startObj, endObj]} animate={false}>
+                    {/* <Geom color={record.color} type="point" shape="hexagon" size={4} position="index*problem"></Geom> */}
+                    <Geom color={repetitionColor(color)} type="line" size={7} position="index*problem"></Geom>
+                </View>
+            )
+        })
+
+        const high_pitch = store.userInput.map((record) => {
+            const startObj = {index: record.start_index, problem: 0.6}
+            const endObj = {index: record.end_index, problem: 0.6}
+            const color = store.rawData[record.start_index + store.HIGHTLIGHT_LENGTH / 2].abnormal_pitch[0]
+            return (
+                <View key={Math.random()} data={[startObj, endObj]} animate={false}>
+                    {/* <Geom color={record.color} type="point" shape="hexagon" size={4} position="index*problem"></Geom> */}
+                    <Geom color={repetitionColor(color)} type="line" size={7} position="index*problem"></Geom>
+                </View>
+            )
         })
         // const userProblem = store.userInput.map((record) => {
         //     if (!store.showChecked) {
@@ -167,18 +191,21 @@ export default class ProblemChart extends Component {
 
         return (
         <div>
-            <Chart scale={this.scale} width={store.GRAPH_WIDTH} height={40} padding={{bottom: 10, left: 10, right:10}} animate={false} onPlotClick={handleClick}>
+            <Chart scale={this.scale} width={store.GRAPH_WIDTH} height={65} padding={{top: 10, bottom: 10, left: 10, right:10}} animate={false} onPlotClick={handleClick}>
+                {
+                    sentiment
+                }
                 {
                     category
                 }
                 {
-                    negation
+                    high_pitch
+                }
+                {
+                    low_pitch
                 }
                 {
                     repetition
-                }
-                {
-                    sentiment
                 }
                 {/* <View scale={this.scale} animate={false} data={[{index: store.playerState.currentTime, problem:1}]}>
                     <Geom color="red" size={1} type="interval" position="index*problem"></Geom>

@@ -45,7 +45,7 @@ export default class App extends Component {
     this.enableFinsh = true;
     store.start_time = Date.now()
     store.sessionId = window.setInterval(() => {
-      store.playBackInteraction.push({sessionTime: (Date.now() - store.start_time) / 1000, videoTime: store.playerState.currentTime, search: {cat: store.advanceCat, neg: store.advanceNeg, rep: store.advanceRep, sent: store.advanceSent}})
+      store.playBackInteraction.push({sessionTime: (Date.now() - store.start_time) / 1000, videoTime: store.playerState.currentTime, search: {cat: store.advanceCat, neg: store.advanceNeg, low_speechrate: store.advanceRep, sent: store.advanceSent, high_pitch: store.advanceHighPitch, low_pitch: store.advanceLowPitch}})
     }, 1000)
   }
 

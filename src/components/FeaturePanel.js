@@ -33,45 +33,21 @@ const repetitionColor = (value) => (
 
 const sentimentColor = (value) => {
     if (value == 0) {
-        return "#a0d911"
+        return "#faad14" 
     } else if (value == 1) {
-        return "#fa541c"
+        return "#a0d911"
     } else {
-        return "#faad14"
+        return "#fa541c"
     }
 }
 
 const LegendPanel = () => (
     <div className="legend-container">
-        <div className="repetition-container">
-            <span>
-                <Tag color={repetitionColor(0)}>0</Tag>
-                <Tag color={repetitionColor(1)}>1</Tag>
-            </span>
-        </div>
-        <div className="repetition-container">
-            <span>
-                <Tag color={repetitionColor(0)}>0</Tag>
-                <Tag color={repetitionColor(1)}>1</Tag>
-            </span>
-        </div>
         <div className="sentiment-container">
             <span>
                 <Tag color={sentimentColor(-1)}>-1</Tag>
                 <Tag color={sentimentColor(0)}>0</Tag>
                 <Tag color={sentimentColor(1)}>1</Tag>
-            </span>
-        </div>
-        <div className="repetition-container">
-            <span>
-                <Tag color={repetitionColor(0)}>0</Tag>
-                <Tag color={repetitionColor(1)}>1</Tag>
-            </span>
-        </div>
-        <div className="negation-container">
-            <span>
-                <Tag color={negationColor(0)}>0</Tag>
-                <Tag color={negationColor(1)}>1</Tag>
             </span>
         </div>
         <div className="category-container">
@@ -80,6 +56,24 @@ const LegendPanel = () => (
                 <Tag color={categoryColor.Procedure}>P</Tag>
                 <Tag color={categoryColor.Observation}>O</Tag>
                 <Tag color={categoryColor.Explanation}>E</Tag>
+            </span>
+        </div>
+        <div className="repetition-container">
+            <span>
+                <Tag color={repetitionColor(0)}>0</Tag>
+                <Tag color={repetitionColor(1)}>1</Tag>
+            </span>
+        </div>
+        <div className="repetition-container">
+            <span>
+                <Tag color={repetitionColor(0)}>0</Tag>
+                <Tag color={repetitionColor(1)}>1</Tag>
+            </span>
+        </div>
+        <div className="repetition-container">
+            <span>
+                <Tag color={repetitionColor(0)}>0</Tag>
+                <Tag color={repetitionColor(1)}>1</Tag>
             </span>
         </div>
     </div>
@@ -109,12 +103,12 @@ export default class FeaturePanel extends Component {
             },
             problem: {
                 type : "cat",
-                values: ["category", "negation", "low speechrate", "sentiment", "high pitch", "low pitch"]
+                values: [ "low speechrate", "low pitch", "high pitch","category", "sentiment"]
             },
             h: {
                 min: 0,
                 max: 1.2,
-                ticks: [0, 0.3, 0.6, 0.9, 1, 1.2]
+                ticks: [0, 0.3, 0.6, 0.9, 1.2]
             }
         }
         const category = store.hightlightData.map((record, index) => {
@@ -131,16 +125,6 @@ export default class FeaturePanel extends Component {
             )
         })
 
-        const negation = store.hightlightData.map((record, index) => {
-            const startObj = {index: index, problem: "negation"}
-            const endObj = {index: index + 1, problem: "negation"}
-            return (
-                <View key={Math.random()} data={[startObj, endObj]} animate={false}>
-                    {/* <Geom color={record.color} type="point" shape="hexagon" size={4} position="index*problem"></Geom> */}
-                    <Geom color={negationColor(record.negation)} type="line" size={14} position="index*problem"></Geom>
-                </View>
-            )
-        })
 
         const repetition = store.hightlightData.map((record, index) => {
             const startObj = {index: index, problem: "low speechrate"}
@@ -195,31 +179,28 @@ export default class FeaturePanel extends Component {
                 {
                     store.selectedTime
                     ?
-                    <View scale={scale} animate={false} data={[{index: store.cursorLocation, problem:"low pitch"}]}>
+                    <View scale={scale} animate={false} data={[{index: store.cursorLocation, problem:"sentiment"}]}>
                         <Geom color="red" size={1} type="interval" position="index*problem"></Geom>
                     </View>
                     :
-                    <View scale={scale} animate={false} data={[{index: store.HIGHTLIGHT_LENGTH / 2, problem:"low pitch"}]}>
+                    <View scale={scale} animate={false} data={[{index: store.HIGHTLIGHT_LENGTH / 2, problem:"sentiment"}]}>
                         <Geom color="red" size={1} type="interval" position="index*problem"></Geom>
                     </View>
                 }
                 {
-                    category
-                }
-                {
-                    negation
-                }
-                {
-                    repetition
-                }
-                {
                     sentiment
+                }
+                {
+                    category
                 }
                 {
                     highpitch
                 }
                 {
                     lowpitch
+                }
+                {
+                    repetition
                 }
                 {/* {
                     <View animate={false} data={[{index: parseInt(store.HIGHTLIGHT_LENGTH / 2), problem:"sentiment"}]}>
