@@ -115,50 +115,14 @@ export default class Filter extends Component {
                     <EditableTable dataSource = {store.dataSource}></EditableTable>
                     {store.testCondition == 3 && store.playerState && store.selectedJsonPath ? <div className="advance-group">
                         <span className="filter-category">
-                            Advance Search:
+                            Filters:
                         </span>
-                        <div>
-                            <span className="filter-sub-category">
-                                Low Pitch:
-                            </span>
-                            <Checkbox.Group onChange={(value) => {store.advanceLowPitch = value}}>
-                                <Checkbox value="0">0</Checkbox>
-                                <Checkbox value="1">1</Checkbox>
-                            </Checkbox.Group>
-                        </div>
-                        <div>
-                            <span className="filter-sub-category">
-                                High Speech Rate:
-                            </span>
-                            <Checkbox.Group onChange={(value) => {store.advanceHighPitch = value}}>
-                                <Checkbox value="0">0</Checkbox>
-                                <Checkbox value="1">1</Checkbox>
-                            </Checkbox.Group>
-                        </div>
                         <div>
                             <span className="filter-sub-category">
                                 Sentiment:
                             </span>
                             <Checkbox.Group onChange={(value) => {store.advanceSent = value}}>
                                 <Checkbox value="-1">-1</Checkbox>
-                                <Checkbox value="0">0</Checkbox>
-                                <Checkbox value="1">1</Checkbox>
-                            </Checkbox.Group>
-                        </div>
-                        <div>
-                            <span className="filter-sub-category">
-                                Low Speech Rate:
-                            </span>
-                            <Checkbox.Group onChange={(value) => {store.advanceRep = value}}>
-                                <Checkbox value="0">0</Checkbox>
-                                <Checkbox value="1">1</Checkbox>
-                            </Checkbox.Group>
-                        </div>
-                        <div>
-                            <span className="filter-sub-category">
-                                Negation:
-                            </span>
-                            <Checkbox.Group onChange={(value) => {store.advanceNeg = value}}>
                                 <Checkbox value="0">0</Checkbox>
                                 <Checkbox value="1">1</Checkbox>
                             </Checkbox.Group>
@@ -172,6 +136,33 @@ export default class Filter extends Component {
                                 <Checkbox value="Procedure">Procedure(P)</Checkbox>
                                 <Checkbox value="Observation">Observation(O)</Checkbox>
                                 <Checkbox value="Explanation">Explanation(E)</Checkbox>
+                            </Checkbox.Group>
+                        </div>
+                        <div>
+                            <span className="filter-sub-category">
+                                High Pitch:
+                            </span>
+                            <Checkbox.Group onChange={(value) => {store.advanceHighPitch = value}}>
+                                <Checkbox value="0">0</Checkbox>
+                                <Checkbox value="1">1</Checkbox>
+                            </Checkbox.Group>
+                        </div>
+                        <div>
+                            <span className="filter-sub-category">
+                                Low Pitch:
+                            </span>
+                            <Checkbox.Group onChange={(value) => {store.advanceLowPitch = value}}>
+                                <Checkbox value="0">0</Checkbox>
+                                <Checkbox value="1">1</Checkbox>
+                            </Checkbox.Group>
+                        </div>
+                        <div>
+                            <span className="filter-sub-category">
+                                Low Speech Rate:
+                            </span>
+                            <Checkbox.Group onChange={(value) => {store.advanceRep = value}}>
+                                <Checkbox value="0">0</Checkbox>
+                                <Checkbox value="1">1</Checkbox>
                             </Checkbox.Group>
                         </div>
                         {/* <Button type="primary" onChange={store.enable}>Apply</Button> */}

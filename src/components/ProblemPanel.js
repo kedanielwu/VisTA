@@ -23,9 +23,10 @@ const handleSubmit = action(() => {
         key: store.count,
         feature: {
             sentiment: store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].sentiment_gt,
-            negation: store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].negation,
-            repetition: store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].repetition,
+            low_speechrate: store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].abnormal_speechrate[1],
             category: store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].category,
+            low_pitch:store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].abnormal_pitch[1],
+            high_pitch:store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].abnormal_pitch[0]
         },
         sessionTime: (Date.now() - store.start_time) / 1000
     })

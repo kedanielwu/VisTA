@@ -14,15 +14,19 @@
 }
 
 .repetition-container {
-    padding-bottom: 5px;
+    padding-bottom: 9px;
 }
 
 .negation-container {
-    padding-bottom: 5px;
+    padding-bottom: 9px;
 }
 
 .sentiment-container {
-    padding-bottom: 5px;
+    padding-bottom: 9px;
+}
+
+.category-container {
+    padding-bottom: 9px;
 }
 
 .ant-tag {

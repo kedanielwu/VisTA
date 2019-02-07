@@ -138,7 +138,7 @@ export default class MainChart extends Component {
                     })
                 } */}
                 <View scale={this.scale} data={store.advanceData} animate={false}>
-                    <Geom color="blue" type="interval" position={x + '*' + y} opacity={0.2} size={1}></Geom>
+                    <Geom color="blue" type="interval" position={x + '*h'} opacity={0.2} size={1}></Geom>
                 </View>
                 {/* <Tooltip
                     containerTpl="<div class=&quot;g2-tooltip&quot;><p class=&quot;g2-tooltip-title&quot;></p><table class=&quot;g2-tooltip-list&quot;></table></div>"

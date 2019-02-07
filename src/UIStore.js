@@ -139,8 +139,6 @@ class UIStore {
         const result = []
         this.rawData.forEach((record) => {
             if (
-                (this.advanceNeg.includes(String(record.negation))  || this.advanceNeg.length == 0)
-                && 
                 (this.advanceRep.includes(String(record.abnormal_speechrate[1])) || this.advanceRep.length == 0)
                 && 
                 (this.advanceCat.includes(String(record.category)) || this.advanceCat.length == 0)
@@ -151,9 +149,9 @@ class UIStore {
                 &&
                 (this.advanceLowPitch.includes(String(record.abnormal_pitch[1])) || this.advanceLowPitch.length == 0)
                 &&
-                (this.advanceNeg.length != 0 || this.advanceCat.length != 0 || this.advanceRep.length != 0 || this.advanceSent.length != 0 || this.advanceHighPitch.length != 0 || this.advanceLowPitch.length != 0)
+                (this.advanceCat.length != 0 || this.advanceRep.length != 0 || this.advanceSent.length != 0 || this.advanceHighPitch.length != 0 || this.advanceLowPitch.length != 0)
             ) {
-                result.push({...record, problem:1})
+                result.push({...record, h:1})
             }
         })
         console.log(result)
