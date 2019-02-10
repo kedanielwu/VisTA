@@ -121,7 +121,7 @@ export default class Filter extends Component {
                             <span className="filter-sub-category">
                                 Sentiment:
                             </span>
-                            <Checkbox.Group onChange={(value) => {store.advanceSent = value}}>
+                            <Checkbox.Group value={store.advanceSent} onChange={(value) => {store.advanceSent = value}}>
                                 <Checkbox value="-1">-1</Checkbox>
                                 <Checkbox value="0">0</Checkbox>
                                 <Checkbox value="1">1</Checkbox>
@@ -142,7 +142,7 @@ export default class Filter extends Component {
                             <span className="filter-sub-category">
                                 High Pitch:
                             </span>
-                            <Checkbox.Group onChange={(value) => {store.advanceHighPitch = value}}>
+                            <Checkbox.Group value={store.advanceHighPitch} onChange={(value) => {store.advanceHighPitch = value}}>
                                 <Checkbox value="0">0</Checkbox>
                                 <Checkbox value="1">1</Checkbox>
                             </Checkbox.Group>
@@ -151,7 +151,7 @@ export default class Filter extends Component {
                             <span className="filter-sub-category">
                                 Low Pitch:
                             </span>
-                            <Checkbox.Group onChange={(value) => {store.advanceLowPitch = value}}>
+                            <Checkbox.Group value={store.advanceLowPitch} onChange={(value) => {store.advanceLowPitch = value}}>
                                 <Checkbox value="0">0</Checkbox>
                                 <Checkbox value="1">1</Checkbox>
                             </Checkbox.Group>
@@ -160,7 +160,7 @@ export default class Filter extends Component {
                             <span className="filter-sub-category">
                                 Low Speech Rate:
                             </span>
-                            <Checkbox.Group onChange={(value) => {store.advanceRep = value}}>
+                            <Checkbox.Group value={store.advanceRep} onChange={(value) => {store.advanceRep = value}}>
                                 <Checkbox value="0">0</Checkbox>
                                 <Checkbox value="1">1</Checkbox>
                             </Checkbox.Group>

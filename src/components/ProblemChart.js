@@ -45,7 +45,7 @@ const sentimentColor = (value) => {
     }
 }
 
-const handleClick = ((ev) => {
+const handleClick = action(((ev) => {
     if (ev.data) {
         store.playerRef.pause()
         store.userInput.map((record) => {
@@ -59,16 +59,17 @@ const handleClick = ((ev) => {
                 // store.HIGHTLIGHT_LENGTH = record.end_index - record.start_index
                 console.log(record.feature)
                 store.advanceCat = [record.feature.category]
-                store.advanceNeg = [record.feature.negation]
-                store.advanceRep = [record.feature.repetition]
-                store.advanceSent = [record.feature.sentiment]
+                store.advanceLowPitch = [String(record.feature.low_pitch)]
+                store.advanceRep = [String(record.feature.low_speechrate)]
+                store.advanceSent = [String(record.feature.sentiment)]
+                store.advanceHighPitch = [String(record.feature.high_pitch)]
                 // store.playerRef.seek(ev.data[0]._origin.index)
             } else {
             }
         }            
         )
     }
-})
+}))
 
 @observer
 export default class ProblemChart extends Component {

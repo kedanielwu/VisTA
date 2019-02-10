@@ -77,6 +77,7 @@ export default class App extends Component {
         // }
       }}>
         <div className="header-container">
+          <Button onClick={()=>console.log(store)}>store</Button>
           <Select placeholder="Please Select" onSelect={selectionUpdate} labelInValue style={{width: 240}}>
             {store.files.map((item) => {
               return(
