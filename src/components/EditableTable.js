@@ -24,10 +24,20 @@ export default class EditableTable extends React.Component {
   ]
   render() {
     const dataSource = store.userInput.map((record) => {
-      const result = {title: record.title, description: record.description, key: record.key}
+      const result = {title: record.title, description: record.description, key: record.key, feature: record.feature}
       return result
     })
     console.log('change')
-    return <Table columns={this.column} scroll={{y:220}} pagination={{ pageSize: 5000 }} dataSource={dataSource}></Table>
+    return <Table onRow={(record) => {
+      return {
+        onClick: (event) => {
+          store.advanceCat = [record.feature.category]
+          store.advanceLowPitch = [String(record.feature.low_pitch)]
+          store.advanceRep = [String(record.feature.low_speechrate)]
+          store.advanceSent = [String(record.feature.sentiment)]
+          store.advanceHighPitch = [String(record.feature.high_pitch)]
+        }
+      }
+    }} columns={this.column} scroll={{y:220}} pagination={{ pageSize: 5000 }} dataSource={dataSource}></Table>
   }
 }
