@@ -39,6 +39,19 @@ export default class App extends Component {
         }
       }
     }
+    if (event.keyCode === 39) {
+      if (store.playerRef && store.playerState) {
+        store.playerRef.pause()
+        store.playerRef.forward(1)
+      }
+    }
+
+    if (event.keyCode === 37) {
+      if (store.playerRef && store.playerState) {
+        store.playerRef.pause()
+        store.playerRef.replay(1)
+      }
+    }
   }
   startFunction() {
     this.enableStart = false;

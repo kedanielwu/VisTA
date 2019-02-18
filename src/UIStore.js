@@ -85,6 +85,9 @@ class UIStore {
     @observable searchCheckedLevel = []
     @observable dataSource = []
     @observable count = 0
+    @computed get hideControl() {
+        return this.testCondition != 1
+    }
     @computed get cursorLocation() {
         if (!this.selectedTime) {
             return -1
