@@ -75,6 +75,7 @@ export default class App extends Component {
     }
     download(JSON.stringify(store.playBackInteraction), 'playback.txt', 'text/plain')
     download(JSON.stringify(store.userInput), 'problem.txt', 'text/plain')
+    download(JSON.stringify(store.problemChartInteraction), 'problemChart.txt', 'text/plain')
   }
   componentDidMount(){
     document.addEventListener("keydown", this.escFunction, false);
