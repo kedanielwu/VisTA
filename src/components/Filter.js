@@ -165,6 +165,16 @@ export default class Filter extends Component {
                                 <Checkbox value="1">1</Checkbox>
                             </Checkbox.Group>
                         </div>
+                        <Button onClick={
+                            () => {
+                                store.advanceCat = []
+                                store.advanceHighPitch = []
+                                store.advanceLowPitch = []
+                                store.advanceNeg = []
+                                store.advanceRep = []
+                                store.advanceSent = []
+                            }
+                        }>Clear</Button>
                         {/* <Button type="primary" onChange={store.enable}>Apply</Button> */}
                     </div> : null}
                 </div>
