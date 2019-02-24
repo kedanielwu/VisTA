@@ -45,10 +45,6 @@ class UIStore {
         }, 
     ]
     @observable problemTitleSet = [
-        'tag1',
-        'tag2',
-        'tag3',
-        'tag4'
     ]
     @observable testCondition = 3
     @observable showProblemPannel
@@ -63,6 +59,7 @@ class UIStore {
 
     ]
     @observable playBackInteraction = []
+    @observable problemChartInteraction = []
     @observable recordInteraction = []
     @observable showChecked = false
     @observable masterInput

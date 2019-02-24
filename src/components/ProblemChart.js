@@ -64,6 +64,7 @@ const handleClick = action(((ev) => {
                 store.advanceSent = [String(record.feature.sentiment)]
                 store.advanceHighPitch = [String(record.feature.high_pitch)]
                 // store.playerRef.seek(ev.data[0]._origin.index)
+                store.problemChartInteraction.push({...record, click_time: (Date.now() - store.start_time) / 1000})
             } else {
             }
         }            
