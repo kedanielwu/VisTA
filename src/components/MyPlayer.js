@@ -36,7 +36,7 @@ export default class MyPlayer extends Component {
         }
         return (
         <div className="my-player-wrapper">
-            <Player preload="auto" ref="player" src={movie} fluid={false} width={600}>
+            <Player preload="auto" ref="player" src={store.selectedVideoPath} fluid={false} width={600}>
                 <ControlBar autoHide={false} disableCompletely={store.hideControl}/>
             </Player>
         </div>
