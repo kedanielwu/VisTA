@@ -5,7 +5,6 @@ import {Player, ControlBar} from "video-react"
 import store from '../UIStore'
 import "../../node_modules/video-react/dist/video-react.css";
 import "./MyPlayer.css"
-import movie from '../static/p1-remote.mp4'
 
 @observer
 export default class MyPlayer extends Component {
