@@ -129,6 +129,12 @@ export default class MainChart extends Component {
                 <View scale={this.scale} animate={false} data={[{index: store.playerState.currentTime, problem:1}]}>
                     <Geom color="red" size={1} type="interval" position="index*problem"></Geom>
                 </View>
+                <View scale={this.scale} animate={false} data={[{index: store.selectedStartTime, problem:0.1}]}>
+                    <Geom color="red" size={1} type="interval" position="index*problem"></Geom>
+                </View>
+                <View scale={this.scale} animate={false} data={[{index: store.selectedEndTime, problem:0.1}]}>
+                    <Geom color="red" size={1} type="interval" position="index*problem"></Geom>
+                </View>
                 {/* {
                     store.userProblem.map(record => {
                         return (
