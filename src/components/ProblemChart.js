@@ -193,7 +193,7 @@ export default class ProblemChart extends Component {
 
         return (
         <div>
-            <Chart scale={this.scale} width={store.GRAPH_WIDTH} height={65} padding={{top: 10, bottom: 10, left: 10, right:10}} animate={false} onPlotClick={handleClick}>
+            <Chart scale={this.scale} width={store.GRAPH_WIDTH} height={65} padding={{top: 10, bottom: 10, left: 10}} animate={false} onPlotClick={handleClick}>
                 {
                     sentiment
                 }

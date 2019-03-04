@@ -19,6 +19,7 @@ export default class MyPlayer extends Component {
             store.selectedTime = false
             store.HIGHTLIGHT_LENGTH = store.HIGHLIGHT_BACKUP
         }
+  
     }
 
     componentDidMount() {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {observable, action} from 'mobx';
 import {observer} from 'mobx-react';
-import {Select, Icon, Button, Radio} from 'antd';
+import {Select, Icon, Button, Radio, Input} from 'antd';
 import logo from './logo.svg';
 import store from './UIStore'
 import './App.css';
@@ -29,13 +29,49 @@ export default class App extends Component {
   @observable test = true;
   @observable enableStart = true;
   @observable enableFinsh = false;
+
   escFunction(event){
     if(event.keyCode === 27) {
       if (store.playerRef && store.playerState) {
         if (store.playerState.paused) {
+          const i = store.userInput.findIndex(record => record.fakeInput)
+          if (i != -1) {
+            store.userInput.splice(i, 1)
+          }
           store.playerRef.play()
+          store.advanceCat = []
+          store.advanceHighPitch = []
+          store.advanceLowPitch = []
+          store.advanceNeg = []
+          store.advanceRep = []
+          store.advanceSent = []
         } else {
           store.playerRef.pause()
+          const feature = {
+            sentiment: store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].sentiment_gt,
+            low_speechrate: store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].abnormal_speechrate[1],
+            category: store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].category,
+            low_pitch:store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].abnormal_pitch[1],
+            high_pitch:store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].abnormal_pitch[0]
+          }
+          store.userInput.push({
+            start_index: store.selectedStartTime, 
+            end_index: store.selectedEndTime, 
+            color: store.selectedColor, 
+            checked: false, 
+            master: false,
+            title: store.problemTitle,
+            description: store.problemDescription,
+            key: store.count,
+            feature: feature,
+            sessionTime: (Date.now() - store.start_time) / 1000,
+            fakeInput: true,
+          })
+          store.advanceCat = [feature.category]
+          store.advanceLowPitch = [String(feature.low_pitch)]
+          store.advanceRep = [String(feature.low_speechrate)]
+          store.advanceSent = [String(feature.sentiment)]
+          store.advanceHighPitch = [String(feature.high_pitch)]
         }
       }
     }
@@ -73,9 +109,9 @@ export default class App extends Component {
       a.download = fileName;
       a.click();
     }
-    download(JSON.stringify(store.playBackInteraction), 'playback.txt', 'text/plain')
-    download(JSON.stringify(store.userInput), 'problem.txt', 'text/plain')
-    download(JSON.stringify(store.problemChartInteraction), 'problemChart.txt', 'text/plain')
+    download(JSON.stringify(store.playBackInteraction), store.userName + '-playback.txt', 'text/plain')
+    download(JSON.stringify(store.userInput), store.userName + '-problem.txt', 'text/plain')
+    download(JSON.stringify(store.problemChartInteraction), store.userName + '-problemChart.txt', 'text/plain')
   }
   componentDidMount(){
     document.addEventListener("keydown", this.escFunction, false);
@@ -91,7 +127,7 @@ export default class App extends Component {
         // }
       }}>
         <div className="header-container">
-          <Button onClick={()=>console.log(store)}>store</Button>
+          <Input style={{width: 240}} onChange={(e)=>{store.userName = e.target.value}} placeholder="Enter user name"></Input>
           <Select placeholder="Please Select" onSelect={selectionUpdate} labelInValue style={{width: 240}}>
             {store.files.map((item) => {
               return(
