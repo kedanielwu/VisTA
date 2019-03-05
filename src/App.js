@@ -36,7 +36,8 @@ export default class App extends Component {
           store.playerRef.play()
         } else {
           store.playerRef.pause()
-        }
+
+          }
       }
     }
     if (event.keyCode === 39) {
@@ -121,7 +122,7 @@ export default class App extends Component {
               {store.testCondition == 3 && store.playerState && store.selectedJsonPath ? <ProblemChart /> : null}
               {store.testCondition != 1 && store.playerState && store.selectedJsonPath ? <MainChart x="index" y="prediction" showProblem={true}/> : null}
               {store.testCondition == 3 && store.playerState && store.selectedJsonPath ? <FeaturePanel size={store.HIGHTLIGHT_LENGTH} cursor={store.cursorLocation}></FeaturePanel> : null}
-            </div> 
+            </div>
         </div>
         <div className="right-container">
           <ProblemPanel />
