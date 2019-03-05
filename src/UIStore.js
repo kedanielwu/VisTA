@@ -44,6 +44,7 @@ class UIStore {
             "tooltip": "Imperative to fix this before product can be released."
         }, 
     ]
+    @observable userName = ""
     @observable problemTitleSet = [
     ]
     @observable testCondition = 3
@@ -93,7 +94,7 @@ class UIStore {
     }
     @computed get unitLength() {
         if (this.selectedJsonPath) {
-            return this.rawData.length / (this.GRAPH_WIDTH - 7)
+            return this.rawData.length / (this.GRAPH_WIDTH - 10)
         }
     }
     @computed get rawData() {

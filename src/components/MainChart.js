@@ -20,8 +20,9 @@ const handlePlotHover = action((ev) => {
 const handlePlotClick = action((ev) => {
     store.showChecked = false
     store.addingDisabled = false
+    console.log(ev.x)
     if (!store.selectedTime) {
-        store.playerRef.seek(Math.round((ev.x - 7) * store.unitLength))
+        store.playerRef.seek(Math.round((ev.x-10) * store.unitLength))
     }
 })
 
@@ -113,19 +114,25 @@ export default class MainChart extends Component {
              scale={this.scale} 
              width={store.GRAPH_WIDTH} 
              height={150}
-             padding={{left: 10, bottom: 40, top: 5, right:10}} 
+             padding={{left: 10, bottom: 40, top: 5}} 
              data={store.rawData} 
              onPlotClick={handlePlotClick} 
              animate={false} 
              onGetG2Instance={getG2Instance}>
                 {/* <Tooltip crosshairs={'y'} showTitle={false} position="botton"/> */}
-                <Axis name={x}></Axis>
+                <Axis name={x} label={{textStyle: {fontSize: 9}}}></Axis>
                 <Axis name={y}></Axis>
                 <Geom color="grey" type="line" position={x + '*' + y} size={1}></Geom>
                 {/* <View scale={this.scale} data={store.hightlightData} animate={false}>
                     <Geom color="red" type="area" position={x + '*h'} opacity={0.2} size={0}></Geom>
                 </View> */}
                 <View scale={this.scale} animate={false} data={[{index: store.playerState.currentTime, problem:1}]}>
+                    <Geom color="red" size={1} type="interval" position="index*problem"></Geom>
+                </View>
+                <View scale={this.scale} animate={false} data={[{index: store.selectedStartTime, problem:0.1}]}>
+                    <Geom color="red" size={1} type="interval" position="index*problem"></Geom>
+                </View>
+                <View scale={this.scale} animate={false} data={[{index: store.selectedEndTime, problem:0.1}]}>
                     <Geom color="red" size={1} type="interval" position="index*problem"></Geom>
                 </View>
                 {/* {
@@ -138,7 +145,7 @@ export default class MainChart extends Component {
                     })
                 } */}
                 <View scale={this.scale} data={store.advanceData} animate={false}>
-                    <Geom color="blue" type="interval" position={x + '*h'} opacity={0.2} size={1}></Geom>
+                    <Geom color={[y, ['#d7191c', '#2c7bb6']]} type="interval" position={x + '*h'} opacity={0.2} size={1}></Geom>
                 </View>
                 {/* <Tooltip
                     containerTpl="<div class=&quot;g2-tooltip&quot;><p class=&quot;g2-tooltip-title&quot;></p><table class=&quot;g2-tooltip-list&quot;></table></div>"

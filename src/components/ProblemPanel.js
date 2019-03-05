@@ -28,7 +28,8 @@ const handleSubmit = action(() => {
             low_pitch:store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].abnormal_pitch[1],
             high_pitch:store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].abnormal_pitch[0]
         },
-        sessionTime: (Date.now() - store.start_time) / 1000
+        sessionTime: (Date.now() - store.start_time) / 1000,
+        fakeInput: false,
     })
     store.count = store.count + 1
     store.selectedColor, store.problemDescription = undefined
@@ -63,10 +64,11 @@ export default class ProblemPanel extends Component {
         const problemTitleSet = store.problemTitleSet.map((v) => (
             <Option key={v} value={v}>{v}</Option>
         ))
+        const currentTime = store.playerState ? store.playerState.currentTime : 0
         return (
             <div className="form-container">
                     <div className="form-field">
-                        <Input readOnly addonBefore="Current Time:" value={new Date((store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2) * 1000).toISOString().substr(14, 5)}/>
+                        <Input readOnly addonBefore="Current Time:" value={new Date(currentTime * 1000).toISOString().substr(14, 5)}/>
                     </div>
                     <div className="form-field">
                         <Select value={store.problemTitle} onChange={action((value) => {store.problemTitle = value})} mode="tags" style={{width: '100%'}} placeholder="Please Select or Input Problem Title.">
@@ -97,3 +99,5 @@ export default class ProblemPanel extends Component {
     }
 
 }
+
+// (store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2)

@@ -24,8 +24,11 @@ export default class EditableTable extends React.Component {
   ]
   render() {
     const dataSource = store.userInput.map((record) => {
-      const result = {title: record.title, description: record.description, key: record.key, feature: record.feature}
-      return result
+      if (!record.fakeInput) {
+        const result = {title: record.title, description: record.description, key: record.key, feature: record.feature}
+        return result
+      }
+      return null
     })
     console.log('change')
     return <Table onRow={(record) => {
@@ -38,6 +41,6 @@ export default class EditableTable extends React.Component {
           store.advanceHighPitch = [String(record.feature.high_pitch)]
         }
       }
-    }} columns={this.column} scroll={{y:220}} pagination={{ pageSize: 5000 }} dataSource={dataSource}></Table>
+    }} columns={this.column} scroll={{y:220}} pagination={{ pageSize: 5000 }} dataSource={dataSource.filter(n=>n)}></Table>
   }
 }
