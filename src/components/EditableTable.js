@@ -23,7 +23,7 @@ export default class EditableTable extends React.Component {
     }
   ]
   render() {
-    const dataSource = store.userInput.map((record) => {
+    const dataSource = store.userInput.reverse().map((record) => {
       if (!record.fakeInput) {
         const result = {title: record.title, description: record.description, key: record.key, feature: record.feature}
         return result
