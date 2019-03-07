@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import {observable, action} from 'mobx';
-import {Select, Icon, Form, Input, Button, Drawer} from 'antd'  
+import {Select, Icon, Form, Input, Button, Drawer} from 'antd'
 import {observer} from 'mobx-react';
 import store from '../UIStore'
 import colors from './Crayola.json'
@@ -13,27 +13,28 @@ const TextArea = Input.TextArea
 
 const handleSubmit = action(() => {
     store.userInput.push({
-        start_index: store.selectedStartTime, 
-        end_index: store.selectedEndTime, 
-        color: store.selectedColor, 
-        checked: false, 
+        start_index: store.selectedStartTime,
+        end_index: store.selectedEndTime,
+        color: store.selectedColor,
+        checked: false,
         master: false,
         title: store.problemTitle,
         description: store.problemDescription,
         key: store.count,
         feature: {
-            sentiment: store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].sentiment_gt,
-            low_speechrate: store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].abnormal_speechrate[1],
-            category: store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].category,
-            low_pitch:store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].abnormal_pitch[1],
-            high_pitch:store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].abnormal_pitch[0]
+            sentiment: store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2 - 1].sentiment_gt,
+            low_speechrate: store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2 -1].abnormal_speechrate[1],
+            category: store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2 - 1].category,
+            low_pitch:store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2 - 1].abnormal_pitch[1],
+            high_pitch:store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2 - 1].abnormal_pitch[0]
         },
         sessionTime: (Date.now() - store.start_time) / 1000,
         fakeInput: false,
     })
+
     store.count = store.count + 1
     store.selectedColor, store.problemDescription = undefined
-    if (store.problemTitle) { 
+    if (store.problemTitle) {
         store.problemTitle.map((record) => {
             if (!store.problemTitleSet.includes(record)){
                 store.problemTitleSet.push(record)
@@ -41,7 +42,7 @@ const handleSubmit = action(() => {
         })
     }
     store.problemTitle = []
-    
+
 })
 
 const handleColorSelection = action((value) => {
@@ -51,7 +52,7 @@ const handleColorSelection = action((value) => {
 @observer
 export default class ProblemPanel extends Component {
 
-    
+
     componentWillMount() {
 
     }
