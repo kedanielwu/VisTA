@@ -41,6 +41,6 @@ export default class EditableTable extends React.Component {
           store.advanceHighPitch = [String(record.feature.high_pitch)]
         }
       }
-    }} columns={this.column} scroll={{y:220}} pagination={{ pageSize: 6 }} dataSource={dataSource.filter(n=>n)}></Table>
+    }} columns={this.column} scroll={{y:100}} pagination={{ pageSize: 5000 }} dataSource={dataSource.filter(n=>n)}></Table>
   }
 }
