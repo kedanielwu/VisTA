@@ -137,6 +137,9 @@ class UIStore {
         return result
     }
     @computed get advanceData () {
+        if (this.testCondition !=3 ) {
+            return []
+        }
         const result = []
         this.rawData.forEach((record) => {
             if (
