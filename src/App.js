@@ -24,6 +24,11 @@ const selectionUpdate = action((value) => {
   store.selectedJsonPath = String(value.label) + '.json'
 })
 
+const uistore = observable({
+  enableStart: true,
+  enableFinsh:false
+})
+
 @observer
 export default class App extends Component {
   @observable test = true;
@@ -90,8 +95,9 @@ export default class App extends Component {
     }
   }
   startFunction() {
-    this.enableStart = false;
-    this.enableFinsh = true;
+    console.log(this)
+    uistore.enableStart = false;
+    uistore.enableFinsh = true;
     store.start_time = Date.now()
     store.sessionId = window.setInterval(() => {
       store.playBackInteraction.push({sessionTime: (Date.now() - store.start_time) / 1000, videoTime: store.playerState.currentTime, search: {cat: store.advanceCat, neg: store.advanceNeg, low_speechrate: store.advanceRep, sent: store.advanceSent, high_pitch: store.advanceHighPitch, low_pitch: store.advanceLowPitch}})
@@ -99,8 +105,8 @@ export default class App extends Component {
   }
 
   endFunction() {
-    this.enableStart = true;
-    this.enableFinsh = false
+    uistore.enableStart = true;
+    uistore.enableFinsh = false
     window.clearInterval(store.sessionId)
     function download(content, fileName, contentType) {
       var a = document.createElement("a");
@@ -136,10 +142,10 @@ export default class App extends Component {
             }
             )}
           </Select>
-          <Button disabled={!this.enableStart} onClick={this.startFunction}>
+          <Button disabled={!uistore.enableStart} onClick={this.startFunction}>
             Start
           </Button>
-          <Button disabled={!this.enableFinsh} onClick={this.endFunction}>
+          <Button disabled={!uistore.enableFinsh} onClick={this.endFunction}>
             Finish
           </Button>
           <RadioGroup onChange={(e) => {store.testCondition = e.target.value}} value={store.testCondition}>
