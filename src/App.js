@@ -55,10 +55,10 @@ export default class App extends Component {
             high_pitch:store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].abnormal_pitch[0]
           }
           store.userInput.push({
-            start_index: store.selectedStartTime, 
-            end_index: store.selectedEndTime, 
-            color: store.selectedColor, 
-            checked: false, 
+            start_index: store.selectedStartTime,
+            end_index: store.selectedEndTime,
+            color: store.selectedColor,
+            checked: false,
             master: false,
             title: store.problemTitle,
             description: store.problemDescription,
@@ -127,7 +127,7 @@ export default class App extends Component {
         // }
       }}>
         <div className="header-container">
-          <Input style={{width: 240}} onChange={(e)=>{store.userName = e.target.value}} placeholder="Enter user name"></Input>
+          <Input style={{width: 240}} onChange={(e)=>{store.userName = e.target.value}} placeholder="Enter user ID"></Input>
           <Select placeholder="Please Select" onSelect={selectionUpdate} labelInValue style={{width: 240}}>
             {store.files.map((item) => {
               return(
@@ -157,7 +157,7 @@ export default class App extends Component {
               {store.testCondition == 3 && store.playerState && store.selectedJsonPath ? <ProblemChart /> : null}
               {store.testCondition != 1 && store.playerState && store.selectedJsonPath ? <MainChart x="index" y="prediction" showProblem={true}/> : null}
               {store.testCondition == 3 && store.playerState && store.selectedJsonPath ? <FeaturePanel size={store.HIGHTLIGHT_LENGTH} cursor={store.cursorLocation}></FeaturePanel> : null}
-            </div> 
+            </div>
         </div>
         <div className="right-container">
           <ProblemPanel />

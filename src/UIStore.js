@@ -9,45 +9,45 @@ class UIStore {
     @observable HIGHLIGHT_BACKUP = 10
     levelSet = [
         {
-            "hex": "#bae7ff", 
-            "name": "No Problem", 
+            "hex": "#bae7ff",
+            "name": "No Problem",
             "rgb": "(203, 65, 84)",
             "level": "0",
             "tooltip": ""
-        }, 
+        },
         {
-            "hex": "#52c41a", 
-            "name": "Cosmetic Problem", 
+            "hex": "#52c41a",
+            "name": "Cosmetic Problem",
             "rgb": "(255, 43, 43)",
             "level": "1",
             "tooltip": "Need not be fixed unless extra time is available on project."
-        }, 
+        },
         {
-            "hex": "#fadb14", 
-            "name": "Minor Usability Problem", 
+            "hex": "#fadb14",
+            "name": "Minor Usability Problem",
             "rgb": "(255, 73, 108)",
             "level": "2",
             "tooltip": "Fixing this should be given low priority."
-        }, 
+        },
         {
-            "hex": "#fa8c16", 
-            "name": "Major Usability Problem", 
+            "hex": "#fa8c16",
+            "name": "Major Usability Problem",
             "rgb": "(238,32 ,77 )",
             "level": "3",
             "tooltip": "Important to fix, so should be given high priority."
-        }, 
+        },
         {
-            "hex": "#cf1322", 
-            "name": "Usability Catastrophe", 
+            "hex": "#cf1322",
+            "name": "Usability Catastrophe",
             "rgb": "(255, 83, 73)",
             "level": "4",
             "tooltip": "Imperative to fix this before product can be released."
-        }, 
+        },
     ]
     @observable userName = ""
     @observable problemTitleSet = [
     ]
-    @observable testCondition = 3
+    @observable testCondition = 1
     @observable showProblemPannel
     @observable selectedFile
     @observable selectedVideoPath
@@ -144,7 +144,7 @@ class UIStore {
         this.rawData.forEach((record) => {
             if (
                 (this.advanceRep.includes(String(record.abnormal_speechrate[1])) || this.advanceRep.length == 0)
-                && 
+                &&
                 (this.advanceCat.includes(String(record.category)) || this.advanceCat.length == 0)
                 &&
                 (this.advanceSent.includes(String(record.sentiment_gt)) || this.advanceSent.length == 0)
