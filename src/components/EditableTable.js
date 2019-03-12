@@ -32,7 +32,7 @@ export default class EditableTable extends React.Component {
   render() {
     const dataSource = store.userInput.reverse().map((record) => {
       if (!record.fakeInput) {
-        const result = {title: record.title, description: record.description, key: record.key, feature: record.feature, start_index: record.start_index, time: new Date(record.start_index * 1000).toISOString().substr(14, 5)}
+        const result = {title: record.title, description: record.description, key: record.key, feature: record.feature, start_index: record.start_index, time: new Date(record.current * 1000).toISOString().substr(14, 5)}
         return result
       }
       return null

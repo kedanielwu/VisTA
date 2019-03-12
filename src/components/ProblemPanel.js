@@ -13,6 +13,7 @@ const TextArea = Input.TextArea
 
 const handleSubmit = action(() => {
     store.userInput.push({
+        current: store.playerState ? store.playerState.currentTime : 0,
         start_index: store.selectedStartTime,
         end_index: store.selectedEndTime,
         color: store.selectedColor,
