@@ -52,13 +52,14 @@ export default class App extends Component {
           store.advanceSent = []
         } else {
           store.playerRef.pause()
+          const time = Math.min(store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2, store.rawData.length-1)
           const feature = {
-            sentiment: store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].sentiment_gt,
-            low_speechrate: store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].abnormal_speechrate[1],
-            category: store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].category,
-            low_pitch:store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].abnormal_pitch[1],
-            high_pitch:store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].abnormal_pitch[0]
-          }
+            sentiment: store.rawData[time].sentiment_gt,
+            low_speechrate: store.rawData[time].abnormal_speechrate[1],
+            category: store.rawData[time].category,
+            low_pitch:store.rawData[time].abnormal_pitch[1],
+            high_pitch:store.rawData[time].abnormal_pitch[0]
+        }
           store.userInput.push({
             start_index: store.selectedStartTime,
             end_index: store.selectedEndTime,
