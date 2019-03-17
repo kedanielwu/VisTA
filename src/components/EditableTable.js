@@ -14,19 +14,19 @@ import {
 export default class EditableTable extends React.Component {
   column = [
     {
-      title: 'Title',
+      title: 'Tags',
       dataIndex: 'title',
-      width: 150
+      width: 100
     },
     {
-      title: 'Description',
+      title: 'Problem Description',
       dataIndex: 'description',
-      width: 150
+      width: 250
     },
     {
       title: "Time",
       dataIndex: 'time',
-      width: 150
+      width: 50
     }
   ]
   render() {
@@ -49,6 +49,6 @@ export default class EditableTable extends React.Component {
           store.playerRef.seek(record.start_index)
         }
       }
-    }} columns={this.column} scroll={{y:100}} pagination={{ pageSize: 5000 }} dataSource={dataSource.filter(n=>n)}></Table>
+    }} columns={this.column} scroll={{y:150}} pagination={{ pageSize: 5000 }} dataSource={dataSource.filter(n=>n)}></Table>
   }
 }
