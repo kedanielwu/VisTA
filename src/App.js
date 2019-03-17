@@ -24,6 +24,11 @@ const selectionUpdate = action((value) => {
   store.selectedJsonPath = String(value.label) + '.json'
 })
 
+const uistore = observable({
+  enableStart: true,
+  enableFinsh:false
+})
+
 @observer
 export default class App extends Component {
   @observable test = true;
@@ -47,19 +52,19 @@ export default class App extends Component {
           store.advanceSent = []
         } else {
           store.playerRef.pause()
-
+          const time = Math.min(store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2, store.rawData.length-1)
           const feature = {
-            sentiment: store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].sentiment_gt,
-            low_speechrate: store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].abnormal_speechrate[1],
-            category: store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].category,
-            low_pitch:store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].abnormal_pitch[1],
-            high_pitch:store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2].abnormal_pitch[0]
-          }
+            sentiment: store.rawData[time].sentiment_gt,
+            low_speechrate: store.rawData[time].abnormal_speechrate[1],
+            category: store.rawData[time].category,
+            low_pitch:store.rawData[time].abnormal_pitch[1],
+            high_pitch:store.rawData[time].abnormal_pitch[0]
+        }
           store.userInput.push({
-            start_index: store.selectedStartTime, 
-            end_index: store.selectedEndTime, 
-            color: store.selectedColor, 
-            checked: false, 
+            start_index: store.selectedStartTime,
+            end_index: store.selectedEndTime,
+            color: store.selectedColor,
+            checked: false,
             master: false,
             title: store.problemTitle,
             description: store.problemDescription,
@@ -91,8 +96,9 @@ export default class App extends Component {
     }
   }
   startFunction() {
-    this.enableStart = false;
-    this.enableFinsh = true;
+    console.log(this)
+    uistore.enableStart = false;
+    uistore.enableFinsh = true;
     store.start_time = Date.now()
     store.sessionId = window.setInterval(() => {
       store.playBackInteraction.push({sessionTime: (Date.now() - store.start_time) / 1000, videoTime: store.playerState.currentTime, search: {cat: store.advanceCat, neg: store.advanceNeg, low_speechrate: store.advanceRep, sent: store.advanceSent, high_pitch: store.advanceHighPitch, low_pitch: store.advanceLowPitch}})
@@ -100,8 +106,8 @@ export default class App extends Component {
   }
 
   endFunction() {
-    this.enableStart = true;
-    this.enableFinsh = false
+    uistore.enableStart = true;
+    uistore.enableFinsh = false
     window.clearInterval(store.sessionId)
     function download(content, fileName, contentType) {
       var a = document.createElement("a");
@@ -128,7 +134,7 @@ export default class App extends Component {
         // }
       }}>
         <div className="header-container">
-          <Input style={{width: 240}} onChange={(e)=>{store.userName = e.target.value}} placeholder="Enter user name"></Input>
+          <Input style={{width: 240}} onChange={(e)=>{store.userName = e.target.value}} placeholder="Enter user ID"></Input>
           <Select placeholder="Please Select" onSelect={selectionUpdate} labelInValue style={{width: 240}}>
             {store.files.map((item) => {
               return(
@@ -137,10 +143,10 @@ export default class App extends Component {
             }
             )}
           </Select>
-          <Button disabled={!this.enableStart} onClick={this.startFunction}>
+          <Button disabled={!uistore.enableStart} onClick={this.startFunction}>
             Start
           </Button>
-          <Button disabled={!this.enableFinsh} onClick={this.endFunction}>
+          <Button disabled={!uistore.enableFinsh} onClick={this.endFunction}>
             Finish
           </Button>
           <RadioGroup onChange={(e) => {store.testCondition = e.target.value}} value={store.testCondition}>

@@ -12,7 +12,9 @@ const Option = Select.Option;
 const TextArea = Input.TextArea
 
 const handleSubmit = action(() => {
+    const time = Math.min(store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2, store.rawData.length-1)
     store.userInput.push({
+        current: store.playerState ? store.playerState.currentTime : 0,
         start_index: store.selectedStartTime,
         end_index: store.selectedEndTime,
         color: store.selectedColor,
@@ -22,11 +24,11 @@ const handleSubmit = action(() => {
         description: store.problemDescription,
         key: store.count,
         feature: {
-            sentiment: store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2 - 1].sentiment_gt,
-            low_speechrate: store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2 -1].abnormal_speechrate[1],
-            category: store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2 - 1].category,
-            low_pitch:store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2 - 1].abnormal_pitch[1],
-            high_pitch:store.rawData[store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2 - 1].abnormal_pitch[0]
+            sentiment: store.rawData[time].sentiment_gt,
+            low_speechrate: store.rawData[time].abnormal_speechrate[1],
+            category: store.rawData[time].category,
+            low_pitch:store.rawData[time].abnormal_pitch[1],
+            high_pitch:store.rawData[time].abnormal_pitch[0]
         },
         sessionTime: (Date.now() - store.start_time) / 1000,
         fakeInput: false,
