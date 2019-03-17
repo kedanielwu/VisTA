@@ -16,16 +16,23 @@ export default class EditableTable extends React.Component {
     {
       title: 'Title',
       dataIndex: 'title',
+      width: 150
     },
     {
       title: 'Description',
-      dataIndex: 'description'
+      dataIndex: 'description',
+      width: 150
+    },
+    {
+      title: "Time",
+      dataIndex: 'time',
+      width: 150
     }
   ]
   render() {
-    const dataSource = store.userInput.map((record) => {
+    const dataSource = store.userInput.reverse().map((record) => {
       if (!record.fakeInput) {
-        const result = {title: record.title, description: record.description, key: record.key, feature: record.feature}
+        const result = {title: record.title, description: record.description, key: record.key, feature: record.feature, start_index: record.start_index, time: new Date(record.start_index * 1000).toISOString().substr(14, 5)}
         return result
       }
       return null
@@ -39,8 +46,9 @@ export default class EditableTable extends React.Component {
           store.advanceRep = [String(record.feature.low_speechrate)]
           store.advanceSent = [String(record.feature.sentiment)]
           store.advanceHighPitch = [String(record.feature.high_pitch)]
+          store.playerRef.seek(record.start_index)
         }
       }
-    }} columns={this.column} scroll={{y:220}} pagination={{ pageSize: 5000 }} dataSource={dataSource.filter(n=>n)}></Table>
+    }} columns={this.column} scroll={{y:100}} pagination={{ pageSize: 5000 }} dataSource={dataSource.filter(n=>n)}></Table>
   }
 }

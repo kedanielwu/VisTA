@@ -5,12 +5,6 @@ import {Player, ControlBar} from "video-react"
 import store from '../UIStore'
 import "../../node_modules/video-react/dist/video-react.css";
 import "./MyPlayer.css"
-<<<<<<< HEAD
-//import movie from '../static/p1-remote.mp4'
-//import movie from '../static/p6-coffeemachine.mp4'
-//import movie from '../static/p1-science-t2.mp4' 
-=======
->>>>>>> 65946150fe1205949b0e4e31f4ec6455fa0611c5
 
 @observer
 export default class MyPlayer extends Component {
