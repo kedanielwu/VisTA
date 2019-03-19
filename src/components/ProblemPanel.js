@@ -74,14 +74,14 @@ export default class ProblemPanel extends Component {
                         <Input readOnly addonBefore="Current Time:" value={new Date(currentTime * 1000).toISOString().substr(14, 5)}/>
                     </div>
                     <div className="form-field">
-                        <Select value={store.problemTitle} onChange={action((value) => {store.problemTitle = value})} mode="tags" style={{width: '100%'}} placeholder="Please Select or Input Problem Title.">
+                        <TextArea autosize={{minRows: 7}} value={store.problemDescription} onChange={action((e) => {store.problemDescription = e.target.value})} placeholder="Please Enter A Problem Description."/>
+                    </div>
+                    <div className="form-field">
+                        <Select value={store.problemTitle} onChange={action((value) => {store.problemTitle = value})} mode="tags" style={{width: '100%'}} placeholder="Add Tags">
                             {
                                 problemTitleSet
                             }
                         </Select>
-                    </div>
-                    <div className="form-field">
-                        <TextArea autosize={{minRows: 7}} value={store.problemDescription} onChange={action((e) => {store.problemDescription = e.target.value})} placeholder="Please Enter A Problem Description."/>
                     </div>
                     {/* <div className="form-field">
                         <Select value={store.selectedColor} defaultValue={store.levelSet[0].hex} style={{width: '100%'}} onSelect={handleColorSelection}>
