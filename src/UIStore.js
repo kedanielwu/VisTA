@@ -1,4 +1,4 @@
-import {observable, action, computed} from 'mobx';
+import {observable, computed} from 'mobx';
 import {files} from './static/data'
 class UIStore {
     @observable start_time = 0

@@ -116,9 +116,9 @@ export default class App extends Component {
       a.download = fileName;
       a.click();
     }
-    download(JSON.stringify(store.playBackInteraction), store.userName + '-playback.txt', 'text/plain')
-    download(JSON.stringify(store.userInput), store.userName + '-problem.txt', 'text/plain')
-    download(JSON.stringify(store.problemChartInteraction), store.userName + '-problemChart.txt', 'text/plain')
+    download(JSON.stringify(store.playBackInteraction), store.userName + '-playback.json', 'text/json')
+    download(JSON.stringify(store.userInput), store.userName + '-problem.json', 'text/json')
+    download(JSON.stringify(store.problemChartInteraction), store.userName + '-problemChart.json', 'text/json')
   }
   componentDidMount(){
     document.addEventListener("keydown", this.escFunction, false);
