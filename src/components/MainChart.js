@@ -121,7 +121,7 @@ export default class MainChart extends Component {
              onGetG2Instance={getG2Instance}>
                 {/* <Tooltip crosshairs={'y'} showTitle={false} position="botton"/> */}
                 <Axis name={x} label={{textStyle: {fontSize: 9}}}></Axis>
-                <Axis name={y}></Axis>
+                <Axis name={y} visible={false}></Axis>
                 <Geom color="grey" type="line" position={x + '*' + y} size={1}></Geom>
                 {/* <View scale={this.scale} data={store.hightlightData} animate={false}>
                     <Geom color="red" type="area" position={x + '*h'} opacity={0.2} size={0}></Geom>

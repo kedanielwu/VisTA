@@ -98,7 +98,7 @@ export default class ProblemChart extends Component {
             return (
                 <View key={Math.random()} data={[startObj, endObj]} animate={false}>
                     {/* <Geom color={record.color} type="point" shape="hexagon" size={4} position="index*problem"></Geom> */}
-                    <Axis name="problem" visible tickLine={null} label={{textStyle: {fontSize: "14", fill: "grey", fontWeight: "normal"}}}/>
+                    <Axis name="problem" visible={false} tickLine={null} label={{textStyle: {fontSize: "14", fill: "grey", fontWeight: "normal"}}}/>
                     <Axis name="index" visible={false}></Axis>
                     <Geom color={categoryColor[color]} type="line" size={7} position="index*problem"></Geom>
                 </View>
@@ -194,6 +194,8 @@ export default class ProblemChart extends Component {
         return (
         <div>
             <Chart scale={this.scale} width={store.GRAPH_WIDTH} height={65} padding={{top: 10, bottom: 10, left: 10}} animate={false} onPlotClick={handleClick}>
+            <Axis name="index" visible={false}></Axis>
+            <Axis name="problem" visible={false}></Axis>
                 {
                     sentiment
                 }
