@@ -25,3 +25,5 @@ yarn-error.log*
 
 /src/static/data.js
 src/static/data.js
+
+ming-project-server/userStudyData

@@ -1,12 +1,15 @@
 var express = require('express')
 var bodyParser = require('body-parser')
+var fs = require('fs')
+var fileUpload = require('express-fileupload')
 
 var app = express()
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({
-  extended: true
-}))
+app.use(fileUpload())
+// app.use(bodyParser.json())
+// app.use(bodyParser.urlencoded({
+//   extended: true
+// }))
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*")
@@ -24,6 +27,9 @@ app.post('/master', function(req, res) {
   res.send(req.body)
 })
 
+app.post('/study', function(req, res) {
+  res.send('success')
+})
 
 
 app.listen(8080);
