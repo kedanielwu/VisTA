@@ -14,5 +14,12 @@
 This version is tested in Chrome only for now, and use p1-remote primarily.
 
 ##
-https://github.com/kedanielwu/ming-json-to-csv
+https://github.com/kedanielwu/ming-json-to-csv  
+
 https://github.com/kedanielwu/ming-visualization
+
+##
+
+Our application was implemented in Javascript using React.js, Ant design library for basic component, BizChart library for data visualization, and MobX.js library for state management, along with Node.js for backend services such as transmitting videos and transcripts.
+
+
