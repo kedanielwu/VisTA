@@ -12,3 +12,7 @@
 ## Troubleshooting
 
 This version is tested in Chrome only for now, and use p1-remote primarily.
+
+##
+https://github.com/kedanielwu/ming-json-to-csv
+https://github.com/kedanielwu/ming-visualization
