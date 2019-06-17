@@ -12,10 +12,12 @@ I am still working on providing more functionality and UI changes, as well as mk
 On root folder, run the command `npm install`
 On root folder, run the command `cd ming-project-server`
 On `~/ming-project-server`, run the command `npm install`
+
 2. Back-end:
 
 On `~/ming-project-server`, run the command `node index.js`
 The back-end server will run on port `8080`
+
 3. Front-end:
 
 On root foler, run the command `npm start`
