@@ -1,5 +1,6 @@
+/* eslint-disable eqeqeq */
 import React, { Component } from 'react';
-import {observable, action} from 'mobx';
+import {action} from 'mobx';
 import {observer} from 'mobx-react';
 import {Player, ControlBar} from "video-react"
 import store from '../UIStore'
@@ -13,8 +14,8 @@ export default class MyPlayer extends Component {
     handleStateChange(state, prevState) {
         //REDUX -> MOBX store update
         store.playerState = state
-        store.selectedStartTime = Math.max(0, parseInt(state.currentTime - store.HIGHTLIGHT_LENGTH / 2))
-        store.selectedEndTime = parseInt(state.currentTime + store.HIGHTLIGHT_LENGTH / 2)
+        store.selectedStartTime = Math.max(0, parseInt(state.currentTime - store.HIGHTLIGHT_LENGTH / 2, 10))
+        store.selectedEndTime = parseInt(state.currentTime + store.HIGHTLIGHT_LENGTH / 2, 10)
         if (parseInt(state.currentTime, 10) > parseInt(store.selectedEndTime, 10) && parseInt(store.selectedEndTime, 10) != 0) {
             store.selectedTime = false
             store.HIGHTLIGHT_LENGTH = store.HIGHLIGHT_BACKUP

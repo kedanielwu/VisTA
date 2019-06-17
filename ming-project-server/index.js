@@ -1,15 +1,9 @@
 var express = require('express')
-var bodyParser = require('body-parser')
-var fs = require('fs')
 var fileUpload = require('express-fileupload')
 
 var app = express()
 
 app.use(fileUpload())
-// app.use(bodyParser.json())
-// app.use(bodyParser.urlencoded({
-//   extended: true
-// }))
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*")

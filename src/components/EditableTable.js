@@ -1,13 +1,11 @@
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import './EditableTable.css';
-import {observable, action} from 'mobx';
 import {observer} from 'mobx-react';
 import store from '../UIStore'
 import {
-  Table, Input, Button, Popconfirm, Form,
+  Table
 } from 'antd';
 
 @observer

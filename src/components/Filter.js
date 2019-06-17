@@ -1,24 +1,12 @@
+/* eslint-disable eqeqeq */
 import React, { Component } from 'react';
-import {observable, action} from 'mobx';
-import {Select, Icon, Form, Input, Button, Checkbox, Upload, Switch, Tooltip, Table} from 'antd'  
+import {action} from 'mobx';
+import {Button, Checkbox} from 'antd'  
 import {observer} from 'mobx-react';
 import store from '../UIStore'
 import './Filter.css'
 import EditableTable from './EditableTable.js'
 
-const Search = Input.Search
-const columns = [{
-    title: 'Title/Tag',
-    dataIndex: 'name',
-    width: 150,
-  }, {
-    title: 'Age',
-    dataIndex: 'age',
-    width: 150,
-  }, {
-    title: 'Address',
-    dataIndex: 'address',
-  }];
 @observer
 export default class Filter extends Component {
 
@@ -86,32 +74,6 @@ export default class Filter extends Component {
         return (
             <div className="filter-container">
                 <div className="filter-left">
-                    {/* <div className="level-group">
-                        <span className="filter-category">
-                            Severity Level:
-                        </span>
-                        <Checkbox.Group onChange={this.handleChange}>
-                            {
-                                store.levelSet.map((level) => (
-                                    <Tooltip key={level.hex} title={level.tooltip} placement="bottom">
-                                        <Checkbox value={level.hex}>{level.name}</Checkbox>
-                                    </Tooltip>
-                                ))
-                            }
-                        </Checkbox.Group>
-                    </div>
-                    <div className="search-group">
-                        <span className="filter-category">
-                            Search In Tags: 
-                        </span>
-                        <Search onChange={this.clearHighlight} placeholder="Tags..." onSearch={this.onTitleSearch} style={{width: '100%'}}/>
-                    </div>
-                    <div className="search-group">
-                        <span className="filter-category">
-                            Search In Notes: 
-                        </span>
-                        <Search onChange={this.clearHighlight} placeholder="Keywords..." onSearch={this.onSearch} style={{width: '100%'}}/>
-                    </div> */}
                     <EditableTable dataSource = {store.dataSource}></EditableTable>
                     {store.testCondition == 3 && store.playerState && store.selectedJsonPath ? <div className="advance-group">
                         <span className="filter-category">
@@ -175,23 +137,8 @@ export default class Filter extends Component {
                                 store.advanceSent = []
                             }
                         }>Clear</Button>
-                        {/* <Button type="primary" onChange={store.enable}>Apply</Button> */}
                     </div> : null}
                 </div>
-                {/* <div className="master-group">
-                    <span>
-                        Show Expert Notes: 
-                    </span>
-                    <Switch onChange={this.onChangeMasterSwitch}></Switch>
-                    <span>
-                        Different:
-                    </span>
-                    <Switch onChange={this.onChangeMasterDiff}></Switch>
-                    <span>
-                        Similar:
-                    </span>
-                    <Switch onChange={this.onChangeMasterDiff}></Switch>
-                </div> */}
             </div>
         )
     }

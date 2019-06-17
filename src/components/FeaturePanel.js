@@ -1,10 +1,9 @@
-import { Chart, Geom, Axis, Tooltip, Coord, Label, Legend, View, Guide, Shape } from 'bizcharts'
+/* eslint-disable eqeqeq */
+import { Chart, Geom, Axis, View } from 'bizcharts'
 import React, { Component } from 'react';
-import {observable, action} from 'mobx';
 import {observer} from 'mobx-react';
 import store from '../UIStore'
-import Brush from '@antv/g2-brush';
-import { Tag, Slider } from 'antd'
+import { Tag } from 'antd'
 import './FeaturePanel.css'
 
 const categoryColor = {
@@ -15,17 +14,6 @@ const categoryColor = {
 
 }
 
-const negationColor = (value) => {
-    if (value == 0) {
-      return "#a0d911"
-
-    } else if (value == 1) {
-        return "#fa541c"
-    }
-    // else if (value == -1) {
-    //     return "#faad14"
-    // }
-}
 
 const repetitionColor = (value) => (
     value == 1 ?  "#fa541c" : "#a0d911"
@@ -88,11 +76,6 @@ export default class FeaturePanel extends Component {
     userProblem;
     raw;
 
-    componentDidMount() {
-          
-    }
-
-
     render() {
         const scale = {
             index: {
@@ -117,7 +100,6 @@ export default class FeaturePanel extends Component {
 
             return (
                 <View key={Math.random()} data={[startObj, endObj]} animate={false}>
-                    {/* <Geom color={record.color} type="point" shape="hexagon" size={4} position="index*problem"></Geom> */}
                     <Axis name="problem" visible tickLine={null} label={{textStyle: {fontSize: "14", fill: "grey", fontWeight: "normal"}}}/>
                     <Axis name="index" visible={false}></Axis>
                     <Geom color={categoryColor[record.category]} type="line" size={14} position="index*problem"></Geom>
@@ -131,7 +113,6 @@ export default class FeaturePanel extends Component {
             const endObj = {index: index + 1, problem: "low speechrate"}
             return (
                 <View key={Math.random()} data={[startObj, endObj]} animate={false}>
-                    {/* <Geom color={record.color} type="point" shape="hexagon" size={4} position="index*problem"></Geom> */}
                     <Geom color={repetitionColor(record.abnormal_speechrate[1])} type="line" size={14} position="index*problem"></Geom>
                 </View>
             )
@@ -143,7 +124,6 @@ export default class FeaturePanel extends Component {
             const endObj = {index: index + 1, problem: "sentiment"}
             return (
                 <View key={Math.random()} data={[startObj, endObj]} animate={false}>
-                    {/* <Geom color={record.color} type="point" shape="hexagon" size={4} position="index*problem"></Geom> */}
                     <Geom color={sentimentColor(record.sentiment_gt)} type="line" size={14} position="index*problem"></Geom>
                 </View>
             ) 
@@ -155,7 +135,6 @@ export default class FeaturePanel extends Component {
             const endObj = {index: index + 1, problem: "high pitch"}
             return (
                 <View key={Math.random()} data={[startObj, endObj]} animate={false}>
-                    {/* <Geom color={record.color} type="point" shape="hexagon" size={4} position="index*problem"></Geom> */}
                     <Geom color={repetitionColor(record.abnormal_pitch[0])} type="line" size={14} position="index*problem"></Geom>
                 </View>
             ) 
@@ -167,7 +146,6 @@ export default class FeaturePanel extends Component {
             const endObj = {index: index + 1, problem: "low pitch"}
             return (
                 <View key={Math.random()} data={[startObj, endObj]} animate={false}>
-                    {/* <Geom color={record.color} type="point" shape="hexagon" size={4} position="index*problem"></Geom> */}
                     <Geom color={repetitionColor(record.abnormal_pitch[1])} type="line" size={14} position="index*problem"></Geom>
                 </View>
             ) 
@@ -202,23 +180,8 @@ export default class FeaturePanel extends Component {
                 {
                     repetition
                 }
-                {/* {
-                    <View animate={false} data={[{index: parseInt(store.HIGHTLIGHT_LENGTH / 2), problem:"sentiment"}]}>
-                        <Geom color="red" size={4} opacity={0.2} type="interval" position="index*problem"></Geom>
-                    </View>
-                } */}
             </Chart>
             <LegendPanel></LegendPanel>
-            {/* <div className="slider-control">
-                <span>Highlight Window Size: (In Second)</span>
-                <Slider defaultValue={10} dots min={10} max={30} step={2} onChange={
-                    (value) => {
-                        store.HIGHLIGHT_BACKUP = store.HIGHTLIGHT_LENGTH
-                        store.HIGHTLIGHT_LENGTH = value
-                        store.playerRef.seek(store.playerState.currentTime)
-                    }
-                }></Slider>
-            </div> */}
         </div>
         )
     }

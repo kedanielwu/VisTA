@@ -1,13 +1,11 @@
 
 import React, { Component } from 'react';
-import {observable, action} from 'mobx';
-import {Select, Icon, Form, Input, Button, Drawer} from 'antd'
+import {action} from 'mobx';
+import {Select, Input, Button} from 'antd'
 import {observer} from 'mobx-react';
 import store from '../UIStore'
-import colors from './Crayola.json'
 import './ProblemPanel.css'
 
-const FormItem = Form.Item;
 const Option = Select.Option;
 const TextArea = Input.TextArea
 
@@ -35,9 +33,10 @@ const handleSubmit = action(() => {
     })
 
     store.count = store.count + 1
-    store.selectedColor, store.problemDescription = undefined
+    store.selectedColor = undefined
+    store.problemDescription = undefined
     if (store.problemTitle) {
-        store.problemTitle.map((record) => {
+        store.problemTitle.forEach((record) => {
             if (!store.problemTitleSet.includes(record)){
                 store.problemTitleSet.push(record)
             }
@@ -47,21 +46,8 @@ const handleSubmit = action(() => {
 
 })
 
-const handleColorSelection = action((value) => {
-    store.selectedColor = value
-})
-
 @observer
 export default class ProblemPanel extends Component {
-
-
-    componentWillMount() {
-
-    }
-
-    componentDidMount() {
-
-    }
 
     render() {
         const problemTitleSet = store.problemTitleSet.map((v) => (
@@ -83,15 +69,6 @@ export default class ProblemPanel extends Component {
                             }
                         </Select>
                     </div>
-                    {/* <div className="form-field">
-                        <Select value={store.selectedColor} defaultValue={store.levelSet[0].hex} style={{width: '100%'}} onSelect={handleColorSelection}>
-                            {
-                                store.levelSet.map((color) => (
-                                    <Option key={color.hex} value={color.hex}><Icon type="tag" style={{color: color.hex}}></Icon>{color.name}</Option>
-                                ))
-                            }
-                        </Select>
-                    </div> */}
                     <div className="form-field submit-button">
                         <Button type="primary" style={{width: '100%'}} onClick={handleSubmit} disabled={store.addingDisabled} >
                            Add
@@ -102,5 +79,3 @@ export default class ProblemPanel extends Component {
     }
 
 }
-
-// (store.selectedStartTime + store.HIGHTLIGHT_LENGTH / 2)
