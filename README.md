@@ -31,7 +31,7 @@ The front-end server will run on port `80`
 All the video record and pre-processed session record should be placed in `~/src/static` and correctly registered in `~/src/static/data.js`
 
 ### registeration format
-Every session is resigtered as label-key pair where `label` indicate the session name and `key` indicate the video file name. (** here label is used as key for mapping**)
+Every session is resigtered as label-key pair where `label` indicate the session name and `key` indicate the video file name. (* here label is used as key for mapping *)
 
 ## Download
 
