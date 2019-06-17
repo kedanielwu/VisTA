@@ -1,20 +1,15 @@
 import React, { Component } from 'react';
 import {observable, action} from 'mobx';
 import {observer} from 'mobx-react';
-import {Select, Icon, Button, Radio, Input} from 'antd';
-import logo from './logo.svg';
+import {Select, Button, Radio, Input} from 'antd';
 import store from './UIStore'
 import './App.css';
-import {files} from './static/data'
 import MyPlayer from './components/MyPlayer'
 import MainChart from './components/MainChart'
 import ProblemChart from './components/ProblemChart'
 import ProblemPanel from './components/ProblemPanel'
 import Filter from './components/Filter'
 import FeaturePanel from './components/FeaturePanel'
-import axios from 'axios'
-import {Player, ControlBar} from "video-react"
-import { MiniArea } from 'ant-design-pro/lib/Charts';
 
 const Option = Select.Option
 const RadioGroup = Radio.Group
