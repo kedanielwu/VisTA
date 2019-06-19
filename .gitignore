@@ -23,7 +23,6 @@ yarn-error.log*
 
 *.mp4
 
-/src/static/data.js
-src/static/data.js
+/src/static
 
 ming-project-server/userStudyData
